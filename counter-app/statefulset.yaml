@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: counter-ss
+spec:
+    serviceName: "counter-app"
+    replicas: 2
+    selector:
+        matchLabels:
+            app: counter
+    template:
+        metadata:
+            labels:
+                app: counter
+        spec:
+            containers:
+            - name: counter
+              image: "sabya10jan/counter:1.2"
+              volumeMounts:
+              - name: counter-statefulset
+                mountPath: /app/
+    volumeClaimTemplates:
+    - metadata: 
+        name: counter-statefulset
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: standard
+        resources:
+            requests:
+                storage: 50Mi

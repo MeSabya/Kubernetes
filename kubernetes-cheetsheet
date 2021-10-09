@@ -1,0 +1,11 @@
+# Accessing the container shell 
+kubectl exec -it <container name> -- bash   
+
+# accessing the logs from the pod 
+kubectl logs <podname>
+
+# To see the all persistent volumes 
+kubectl get pv
+
+
+
