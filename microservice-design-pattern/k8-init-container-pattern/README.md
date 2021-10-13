@@ -23,4 +23,7 @@ There are some considerations that you should take into account when you create 
   much like how Jobs and CronJobs behave.
 - All containers on the same Pod share the same Volumes and network. You can make use of this feature to share data between the application and its init containers.
 - Init containers are restarted when they fail. Hence, their code must be idempotent.
-- 
+
+## UseCase1: Doing git cloning using init container pattern. (init-container.yaml)
+## UseCase2: Seeding the MySQL DB before start up.
+## UseCase3: Waiting for another resource to start. (delaying-application-launch.yaml, myservice.yaml)  
