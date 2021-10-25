@@ -98,3 +98,25 @@ DaemonSet automatically adds/deletes the pod.
  pod will go down in same manner e.g. If I change the image of the above DaemonSet, one pod will go down, and when it comes back up with the updated image, 
  only then the next pod will terminate and so on. If an error occurs while updating, so only one pod will be down, all other pods will still be up, 
  running on previous stable version. Unlike Deployments, you cannot roll back your DaemonSet to a previous version
+  
+# **So after all these discussions we should able to answer the question:**
+  
+***Why StatefulSets? Can't a stateless Pod use persistent volumes?***
+Yes, a regular pod can use a persistent volume. However, sometimes you have multiple pods that logically form a "group". 
+**Examples** of this would be database replicas, ZooKeeper hosts, Kafka nodes, etc. In all of these cases there's a bunch of servers and they work together and talk to each other. What's special about them is that each individual in the group has an identity. For example, for a database cluster one is the master and two are followers and each of the followers communicates with the master letting it know what it has and has not synced. So the followers know that "db-x-0" is the master and the master knows that "db-x-2" is a follower and has all the data up to a certain point but still needs data beyond that.
+  
+**In such situations you need a few things you can't easily get from a regular pod:**
+
+**A predictable name**: you want to start your pods telling them where to find each other so they can form a cluster, elect a leader, etc. but you need to know their names in advance to do that. Normal pod names are random so you can't know them in advance.
+
+**A stable address/DNS name**: you want whatever names were available in step (1) to stay the same. If a normal pod restarts (you redeploy, the host where it was running dies, etc.) on another host it'll get a new name and a new IP address.
+
+ **A persistent link between an individual in the group and their persistent volume**: if the host where one of your database master was running dies it'll get moved to a new host but should connect to the same persistent volume as there's one and only 1 volume that contains the right data for that "individual". So, for example, if you redeploy your group of 3 database hosts you want the same individual (by DNS name and IP address) to get the same persistent volume so the master is still the master and still has the same data, replica1 gets it's data, etc.
+  
+StatefulSets solve these issues because they provide:
+- Stable, unique network identifiers.
+- Stable, persistent storage.
+- Ordered, graceful deployment and scaling.
+- Ordered, graceful deletion and termination.
+
+As some have noted, you can indeed can some of the same benefits by using regular pods and services, but its much more work. For example, if you wanted 3 database instances you could manually create 3 deployments and 3 services. Note that you must manually create 3 deployments as you can't have a service point to a single pod in a deployment. Then, to scale up you'd manually create another deployment and another service. This does work and was somewhat common practice before PetSet/PersistentSet came along. Note that it is missing some of the benefits listed above (persistent volume mapping & fixed start order for example).
