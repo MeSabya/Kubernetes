@@ -37,3 +37,9 @@ If the readiness probe for your app fails, then that pod is removed from the end
 Use a **Liveness probe** if you want to ask kubernetes to restart a container (a container not the pod). This can be useful is you suspect that your process cannot recover (case of deadlock, case of leak, ...)
 
 Use a **Readiness probe** if you want to ask kuberntes to stop (or not start to) sending you traffic while you recover/get ready. Useful for startup check and warm-up, as well as for reducing workload in case of unexpected queuing for example. Use it also if you are able to detect that you won't be able to process incoming queries, for example you are missing a dependency and you cannot deliver a degraded response (caution read next sections about dependencies and probes).
+
+
+# References:
+https://alibaba-cloud.medium.com/kubernetes-configure-liveness-and-readiness-probes-588aa2cab90d
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/?spm=a2c41.12911419.0.0.530a2c3ezn4w48#define-a-liveness-command
+
