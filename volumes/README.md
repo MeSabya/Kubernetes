@@ -21,6 +21,26 @@ Two specific volume types that are dependent on host-based storage are emptyDir 
 - A common storage area for sharing configuration settings and metadata across multiple containers of the same pod.
 - A well-known storage location for containers to store and forward data. A crawler container might populate the volume periodically, while the web server is responding to the 
   requests.
+  
+### HostPath
+- A hostPath volume mounts a file or directory from the node's filesystem into the Pod. 
+- You should NOT use hostPath volume type for StatefulSets
+
+You can specify whether the file/directory must already exist on the node or should be created on pod startup. 
+You can do it using a type attribute in the config file:
+
+![image](https://user-images.githubusercontent.com/33947539/139912040-94363d69-b2fb-4160-9ad4-527c04000e09.png)
+
+**type**: Directory defines that the directory must already exist on the host, so you will have to create it there manually first, before using the hostpath.
+
+Other values for type are DirectoryOrCreate, File, FileOrCreate. Where *OrCreate will be created dynamically if it doesn't already exist on the host.
+
+
+
+**Some uses for a hostPath are:**
+
+- Running a Container that needs access to Docker internals; use a hostPath of /var/lib/docker
+- Running cAdvisor in a Container; use a hostPath of /sys
 
 ## Details on non-host-based storage:
 
