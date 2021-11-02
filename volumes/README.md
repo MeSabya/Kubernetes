@@ -1,3 +1,29 @@
+# Volumes
+Kubernetes volumes may be classified into: 
+- **host-based storage**:Similar to Docker volumes, where a portion of the host’s storage becomes available to the pod. Once a pod is terminated, the volume gets automatically deleted.
+- **non-host-based storage**: It doesn’t rely on a specific node. Instead, a storage volume is created from an external storage service. Volumes based on this storage type would be available even after the pods are deleted.
+
+## Details on host-based storage:
+Any storage that the containers use inside the pod is ephemeral by nature. They get removed automatically with every pod restart.
+Two specific volume types that are dependent on host-based storage are emptyDir and and hostPath.
+### EmptyDir
+- An emptyDir volume is first created when a Pod is assigned to a Node and initially its empty
+- A Volume of type emptyDir that lasts for the life of the Pod, even if the Container terminates and restarts.
+- If a container in a Pod crashes the emptyDir content is unaffected.
+- All containers in a Pod share use of the emptyDir volume .
+- Each container can independently mount the emptyDir at the same / or different path.
+- Using emptyDir, The Kubelet will create the directory in the container, but not mount any storage.
+- When a Pod is removed from a node for any reason, the data in the emptyDir is deleted forever along with the container.
+- The location should of emptyDir should be in /var/lib/kubelet/pods/{podid}/volumes/kubernetes.io~empty-dir/ on the given node where your pod is running.
+
+**Some of the popular use cases for using emptyDir volumes include:**
+- The creation of a scratch disk for storing intermediary data.
+- A common storage area for sharing configuration settings and metadata across multiple containers of the same pod.
+- A well-known storage location for containers to store and forward data. A crawler container might populate the volume periodically, while the web server is responding to the 
+  requests.
+
+## Details on non-host-based storage:
+
 # Persistent Volumes
 - Kubernetes makes physical storage devices like your SSDs, NVMe disks, NAS, NFS servers available to your cluster in the form of objects called -- Persistent Volumes.
 - If you’re using Kubernetes on Google’s or Amazon’s cloud, you can have your google SSDs or EBS volumes available to your containers in the form of persistent volumes.
@@ -72,6 +98,8 @@ Persistent volume claim consist of storage class, resources and access modes.
 **Resources**: It’s defines that at which volumes this claim should trigger. For example if you write 500M in resource it will trigger to all Persistent volumes having storage of 500 Mb.
 
 Access Modes are same as in persistent volume.
+
+![image](https://user-images.githubusercontent.com/33947539/139830373-ad227725-5ec0-44d4-837c-5cd7202e1372.png)
 
 
 
