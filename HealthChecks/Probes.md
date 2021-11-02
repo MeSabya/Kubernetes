@@ -5,8 +5,15 @@
 
 In a nutshell, the probe's Handler can be of 3 types:
 - Exec: specific command to execute inside the container. Return value of 0 expected for healthy container.
+  ![image](https://user-images.githubusercontent.com/33947539/139840730-3caa93ad-2976-4395-8415-c8c4cfa1a7f8.png)
+
 - HTTP/GET: define an URI and port to be used to perform a HTTP query. Return value of 200  (HTTP/OK) expected for healthy container.
+
+  ![image](https://user-images.githubusercontent.com/33947539/139840763-0968758f-3d57-4dbe-af27-d6bfa4526498.png)
+
 - TCPSocket: define a port. Ability to setup connect is expected for healthy container.
+  ![image](https://user-images.githubusercontent.com/33947539/139840806-d4442cc6-573a-4428-bf7e-bb0fc6b63895.png)
+
 
 ## Attributes in Kubernets Probes:
 **InitialDelaySeconds**: To avoid stressing the containers immediately with the probe, you can define this. This is useful in case you know that your container need a warm-up period.
