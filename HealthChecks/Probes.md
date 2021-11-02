@@ -14,6 +14,25 @@ In a nutshell, the probe's Handler can be of 3 types:
 - TCPSocket: define a port. Ability to setup connect is expected for healthy container.
   ![image](https://user-images.githubusercontent.com/33947539/139840806-d4442cc6-573a-4428-bf7e-bb0fc6b63895.png)
 
+## Exec vs HTTP and TCP probes
+- Exec probes should be avoided. HTTP or TCP probes should be employed instead.  The reason behind this is that Exec probes cannot be cleaned up reliably by the platform if, for instance, they block.  Currently, the Docker container runtime offers no means to kill a process launched via 'docker exec' (the underyling method by which an Exec probe is launched.
+
+- Even if such an interface did exist, it would not be technically feasible to ensure that any subprocesses launched by the main process were cleaned up too, so you have a potential for process leakage (which in turn means there may be database locks left lying around, etc).
+
+### Cleaning up processes launched via 'docker exec'
+One might think that since the container runtime can clean up a container and all the processes that run inside it in a fully guaranteed way, it should be able to clean up processes launched via "docker exec".
+
+Tearing down all processes that are part of a container is trivial: the container runtime simply tears down the container cgroup (control group), and the kernel guarantees it will destroy all processes it contains.
+
+In the 'docker exec' case, a new independenant container and associated cgroup is not being created - rather an existing container cgroup/namespace combination is "entered", and new processes are launched in this context alongside existing container processes.
+
+Tearing down processes launched via 'docker exec' would therefore require the container runtime to look inside the container and destroy processes selectively.  You can't simply tear down the entire cgroup since that would destroy the main container processes, not only e.g. a probe, and this isn't desired behaviour.
+
+One might then argue the container runtime could follow the tree of processes created inside the container PID namespace by the 'docker exec', however even this might miss some processes (e.g. daemonised processes (forked twice)), so once again, no silver bullet.
+
+**Bottom line**:
+- don't use exec probes
+- any pod that has been exec'd to should be considered tainted
 
 ## Attributes in Kubernets Probes:
 **InitialDelaySeconds**: To avoid stressing the containers immediately with the probe, you can define this. This is useful in case you know that your container need a warm-up period.
@@ -44,6 +63,11 @@ If the readiness probe for your app fails, then that pod is removed from the end
 Use a **Liveness probe** if you want to ask kubernetes to restart a container (a container not the pod). This can be useful is you suspect that your process cannot recover (case of deadlock, case of leak, ...)
 
 Use a **Readiness probe** if you want to ask kuberntes to stop (or not start to) sending you traffic while you recover/get ready. Useful for startup check and warm-up, as well as for reducing workload in case of unexpected queuing for example. Use it also if you are able to detect that you won't be able to process incoming queries, for example you are missing a dependency and you cannot deliver a degraded response (caution read next sections about dependencies and probes).
+
+It is good practice to define probes, however some care is needed in their implementation.  For instance, badly implemented probes may cause unwanted side-effects inside pods (e.g. deadlocks in a database with real traffic).
+
+![image](https://user-images.githubusercontent.com/33947539/139847433-b88a1307-44d3-4c57-86fb-02fba4aca312.png)
+
 
 
 # References:
