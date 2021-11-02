@@ -55,7 +55,8 @@ NAME                                           STATUS                           
 local-device-pvc                               Bound                pvc-079bbc07-e2fb-412a-837b-4745051c1bfc
 
 We can create our application deployment using this PVC.
-![image](https://user-images.githubusercontent.com/33947539/139820403-af477ed9-cb8d-4dd2-93bc-b8021e4441c0.png)![image](https://user-images.githubusercontent.com/33947539/139820612-a0b016cb-bdb4-49a6-852d-4ebd21497beb.png)
+![image](https://user-images.githubusercontent.com/33947539/139820403-af477ed9-cb8d-4dd2-93bc-b8021e4441c0.png)
+![image](https://user-images.githubusercontent.com/33947539/139820612-a0b016cb-bdb4-49a6-852d-4ebd21497beb.png)
 
 Following these operations, the Kubelet will mount a volume that matches the specifications of the PVC to the application container.
 
