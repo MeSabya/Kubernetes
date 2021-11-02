@@ -73,4 +73,5 @@ It is good practice to define probes, however some care is needed in their imple
 # References:
 https://alibaba-cloud.medium.com/kubernetes-configure-liveness-and-readiness-probes-588aa2cab90d
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/?spm=a2c41.12911419.0.0.530a2c3ezn4w48#define-a-liveness-command
+https://medium.com/@gabytal333/kubernetes-powerful-liveness-probe-with-python-b6dd43adcf9b
 
