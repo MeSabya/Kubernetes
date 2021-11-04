@@ -48,4 +48,6 @@ It’s used for creating periodic and recurring tasks like running backups and s
 
 ![image](https://user-images.githubusercontent.com/33947539/137771468-a10af3ec-06ff-4e18-a710-66be17f394f6.png)
 
-  
+
+# References:
+- https://betterprogramming.pub/tutorial-how-to-use-kubernetes-job-and-cronjob-1ef4ffbc8e84
