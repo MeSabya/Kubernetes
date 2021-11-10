@@ -30,10 +30,10 @@ Deployment adds following important fields under spec:
 
 ## Deployment Stratergies:
 Kubernetes supports two types of deployment strategies:
-- Rolling update
-- Recreate
+- **RollingUpdate**: New pods are added gradually, and old pods are terminated gradually
+- **Recreate**: All old pods are terminated before any new pods are added
 
-### We are only looking at RollingUpdate below:
+### RollingUpdate below:
 - Deployments, as discussed, creates a ReplicaSet which then creates a Pod so whenever you update the deployment using RollingUpdate(default) strategy, 
   a new ReplicaSet is created and the Deployment moves the Pods from the old ReplicaSet to the new one at a controlled rate. 
 - ❗**Rolling Update means that the previous ReplicaSet doesn’t scale to 0 unless the new ReplicaSet is up & running ensuring 100% uptime.**
@@ -41,6 +41,10 @@ Kubernetes supports two types of deployment strategies:
 ![image](https://user-images.githubusercontent.com/33947539/141145533-f55c0b1a-a4ef-4e2c-900d-d0533418cfb5.png)
 
 Rollback is simply the reverse of rolling update. Kubernetes stores state of previous updates, so it’s very easy to revert to previous revision.
+When using the RollingUpdate strategy, there are two more options that let you fine-tune the update process:
+
+- **maxSurge**: The maximum number of new pods that will be created at a time.
+- **maxUnavailable**: The maximum number of old pods that will be deleted at a time.
 
 ## Rolling Back to previous version
 - The ReplicaSet can hold only a single type of Pod.So you can't have version 1 and version 2 of the Pods in the same ReplicaSet.
@@ -59,5 +63,17 @@ Rollback is simply the reverse of rolling update. Kubernetes stores state of pre
 :point_right:kubectl rollout status deployment myapp
  - If the deployment fails, the command exits with a non-zero return code to indicate a failure.
 
+## Kubernetes Pod Affinity and Anti-Affinity
+- Affinity and anti-affinity allow you to control on which nodes the pods in your deployment can be scheduled. While this feature is not specific to deployments, it can be very useful for many applications.
+
+
+When configuring affinity or anti-affinity , There are two options:
+- **requiredDuringSchedulingIgnoredDuringExecution**: the pod cannot be scheduled on a node unless it matches the affinity configuration, even if there are no nodes that match
+- **preferredDuringSchedulingIgnoredDuringExecution**: the scheduler will attempt to schedule the pod on a node matching the affinity configuration, but if it is unable to do so the pod will still be scheduled on another node.
+
+**Pod Affinity**:Pod affinity is used to schedule pods onto certain nodes. You would normally want to do this if you know that a pod has a specific resource requirement that can be met by a specific set of nodes.
+**Pod AntiAffinity**:Pod anti-affinity is useful for ensuring that pods in a Deployment are not scheduled all on one node. 
+
 ### References:
 - https://learnk8s.io/kubernetes-rollbacks
+- https://www.bluematador.com/blog/kubernetes-deployments-rolling-update-configuration
