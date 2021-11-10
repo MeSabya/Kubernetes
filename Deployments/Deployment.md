@@ -10,7 +10,7 @@
 ![image](https://user-images.githubusercontent.com/33947539/141157600-57c6f1d8-4045-4243-bb3a-04855fa46436.png)
 
 - ❗In Deployments, you can also manually roll back to a previous ReplicaSet, if needed in case if your new feature is not working as expected.
-   - We will learn this rollback in 
+   - [rollback in K8s](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#rolling-back-to-previous-version) 
 
 Deployments are very flexible and can be used in many ways. Below I have selected most important problems that deployments help solve.
 - **Scalability**: enable up and down-scaling of pods
@@ -43,5 +43,18 @@ Kubernetes supports two types of deployment strategies:
 Rollback is simply the reverse of rolling update. Kubernetes stores state of previous updates, so it’s very easy to revert to previous revision.
 
 ## Rolling Back to previous version
+- The ReplicaSet can hold only a single type of Pod.So you can't have version 1 and version 2 of the Pods in the same ReplicaSet.
+- **When you upgrade your Pods from version 1 to version 2, the Deployment creates a new ReplicaSet and increases the count of replicas while the previous count goes to zero.**
+- **So what happens when another rolling update from version 2 to version 3** ?
+   - you might notice that at the end of the upgrade, you have two ReplicaSets with a count of 0.
+- ❗After the rolling update, the previous ReplicaSet is not deleted — not immediately at least.Why ?
+  - **keeping the previous ReplicaSets around is a convenient mechanism to roll back to a previously working version of your app.**
+  - By default Kubernetes stores the last 10 ReplicaSets and lets you roll back to any of them.
+  - But you can change how many ReplicaSets should be retained by changing the spec.revisionHistoryLimit in your Deployment.
+### Could you list all the previous Replicasets that belong to a Deployment?
+kubectl rollout history deployment/app
+### And how can you rollback to a specific version with?
+kubectl rollout undo deployment/app --to-revision=2
 
-
+### References:
+- https://learnk8s.io/kubernetes-rollbacks
