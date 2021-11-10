@@ -74,6 +74,35 @@ When configuring affinity or anti-affinity , There are two options:
 **Pod Affinity**:Pod affinity is used to schedule pods onto certain nodes. You would normally want to do this if you know that a pod has a specific resource requirement that can be met by a specific set of nodes.
 **Pod AntiAffinity**:Pod anti-affinity is useful for ensuring that pods in a Deployment are not scheduled all on one node. 
 
+## Commands used in Deployment:
+#### List deployments:
+:point_right:kubectl get deploy
+
+#### Update a deployment with a manifest file:
+:point_right:kubectl apply -f test.yaml
+
+#### Scale a deployment “test” to 3 replicas:
+:point_right:kubectl scale deploy/test --replicas=3
+
+#### Watch update status for deployment “test”:
+:point_right:kubectl rollout status deploy/test
+
+#### Pause deployment on “test”:
+:point_right:kubectl rollout pause deploy/test
+
+#### Resume deployment on “test”:
+:point_right:kubectl rollout resume deploy/test
+
+#### View rollout history on “test”:
+:point_right:kubectl rollout history deploy/test
+
+#### Undo most recent update on “test”:
+:point_right:kubectl rollout undo deploy/test
+
+#### Rollback to specific revision on “test”:
+:point_right:kubectl rollout undo deploy/test --to-revision=1
+ 
+
 ### References:
 - https://learnk8s.io/kubernetes-rollbacks
 - https://www.bluematador.com/blog/kubernetes-deployments-rolling-update-configuration
