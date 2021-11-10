@@ -51,10 +51,13 @@ Rollback is simply the reverse of rolling update. Kubernetes stores state of pre
   - **keeping the previous ReplicaSets around is a convenient mechanism to roll back to a previously working version of your app.**
   - By default Kubernetes stores the last 10 ReplicaSets and lets you roll back to any of them.
   - But you can change how many ReplicaSets should be retained by changing the spec.revisionHistoryLimit in your Deployment.
-### Could you list all the previous Replicasets that belong to a Deployment?
-kubectl rollout history deployment/app
-### And how can you rollback to a specific version with?
-kubectl rollout undo deployment/app --to-revision=2
+#### Could you list all the previous Replicasets that belong to a Deployment?
+:point_right:kubectl rollout history deployment/app
+#### And how can you rollback to a specific version with?
+:point_right:kubectl rollout undo deployment/app --to-revision=2
+#### How to check that the rolling update proceeds as expected?
+:point_right:kubectl rollout status deployment myapp
+ - If the deployment fails, the command exits with a non-zero return code to indicate a failure.
 
 ### References:
 - https://learnk8s.io/kubernetes-rollbacks
