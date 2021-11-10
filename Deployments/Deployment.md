@@ -70,13 +70,15 @@ Let's say I have a deployment template like this:
 ❗**.spec.minReadySeconds** is an optional field that specifies the minimum number of seconds for which a newly created Pod should be ready without any of its containers crashing, for it to be considered available. This defaults to 0 (the Pod will be considered available as soon as it is ready).
 
 **initialDelaySeconds**: Number of seconds after the container has started before liveness or readiness probes are initiated.
+
 ❗So initialDelaySeconds comes before minReadySeconds.
+
 ❗Lets say, container in the pod has started at t seconds. Readiness probe will be initiated at t+initialDelaySeconds seconds. Assume Pod become ready at t1 seconds(t1 > t+initialDelaySeconds). So this pod will be available after t1+minReadySeconds seconds.
 
 ## Deployment Usecase Analysis:
 For example, say you had a deployment running 5 pods that read from an event stream, process events, and save them to a database. It takes each pod about 60 seconds to warm up and process events at full speed. In the default configuration, the pods would be replaced and immediately become ready, but they would be slow to process events for the first minute. Immediately after your update is finished, this event processing system will have fallen behind and will need to catch up since all of the pods had to warm up at the same time. 
 ### Solution
-you can set your maxSurge to 1, maxUnavailable to 0, and **minReadySeconds** to 60. This would ensure new pods would be created one at a time, a minute would pass between pods being added, and old pods would only be removed once new pods have already warmed up. This way you update all your pods over the course of ~5 minutes, and your processing times remain stable.
+you can set your maxSurge to 1, maxUnavailable to 0, and **[minReadySeconds](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#how-does-minreadyseconds-affect-readiness-probe)** to 60. This would ensure new pods would be created one at a time, a minute would pass between pods being added, and old pods would only be removed once new pods have already warmed up. This way you update all your pods over the course of ~5 minutes, and your processing times remain stable.
 
 ## Kubernetes Pod Affinity and Anti-Affinity
 - Affinity and anti-affinity allow you to control on which nodes the pods in your deployment can be scheduled. While this feature is not specific to deployments, it can be very useful for many applications.
