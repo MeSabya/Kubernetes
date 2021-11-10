@@ -31,6 +31,9 @@ You can do it using a type attribute in the config file:
 
 ![image](https://user-images.githubusercontent.com/33947539/139912040-94363d69-b2fb-4160-9ad4-527c04000e09.png)
 
+# References:
+- https://loft-sh.medium.com/kubernetes-persistent-volumes-examples-best-practices-a201c6403845
+
 **type**: Directory defines that the directory must already exist on the host, so you will have to create it there manually first, before using the hostpath.
 
 Other values for type are DirectoryOrCreate, File, FileOrCreate. Where *OrCreate will be created dynamically if it doesn't already exist on the host.
