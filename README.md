@@ -13,6 +13,14 @@
    2. [Create container with resources limits](https://github.com/MeSabya/Kubernetes/tree/main/ManagingResource#create-container-with-resources-limits)
    3. [cpu request exceeding available resources](https://github.com/MeSabya/Kubernetes/tree/main/ManagingResource#cpu-request-exceeding-available-resources)
 4. [What is a headless service, what does it do/accomplish, and what are some legitimate use cases for it?](https://github.com/MeSabya/Kubernetes/blob/main/HeadlessService.md#what-is-a-headless-service-what-does-it-doaccomplish-and-what-are-some-legitimate-use-cases-for-it)
+5. [Deployment in detail](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md)
+   1. [Deployment Stratergies](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#deployment-stratergies) 
+      - [Rolling update](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#rollingupdate-below)
+      - [Rolling back](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#rolling-back-to-previous-version)
+   2. [minreadyseconds-affect-readiness-probe](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#how-does-minreadyseconds-affect-readiness-probe)
+   3. [Rollingupdate UseCase](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#deployment-usecase-analysis)
+   4. [Kubernetes Pod Affinity and Anti-Affinity](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#kubernetes-pod-affinity-and-anti-affinity)
+   5. [Deployment Commands](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#commands-used-in-deployment)
  
  
  ## CKAD Prepration material:
