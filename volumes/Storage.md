@@ -130,7 +130,8 @@ Access Modes are same as in persistent volume.
 
 ![image](https://user-images.githubusercontent.com/33947539/139830373-ad227725-5ec0-44d4-837c-5cd7202e1372.png)
 
-
+## References:
+https://loft-sh.medium.com/kubernetes-persistent-volumes-examples-best-practices-a201c6403845
 
 
 
