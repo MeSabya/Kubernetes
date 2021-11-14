@@ -20,8 +20,61 @@ in some cases, the configuration might be too complex for environment variables.
 
 ![image](https://user-images.githubusercontent.com/33947539/141256711-d8e82684-e3f8-44de-9727-0f5faefa4b04.png)
 
-## Mounting the ConfigMap
+## Creating ConfigMap from manifest file:
+It’s possible to create a ConfigMap along with the configuration data stored as key-value pairs in the data section of the definition.
+![image](https://user-images.githubusercontent.com/33947539/141665850-4cbc8d31-b8ea-44d7-ae08-dc499af98c05.png)
+![image](https://user-images.githubusercontent.com/33947539/141665864-50f4162b-5d7f-46b3-a853-1dd56eddb7c1.png)
+
+In the above manifest:
+
+the ConfigMap named simpleconfig contains two pieces of (key-value) data — hello=world and foo=bar
+simpleconfig is referenced by a Pod (pod2; the keys hello and foo are consumed as environment variables HELLO_ENV_VAR and FOO_ENV_VAR respectively.
+Note that we have included the Pod and ConfigMap definition in the same YAML separated by a ---
+
+#### How to check for config variables inside pod
+:point_right: $ kubectl exec pod2 -it -- env | grep _ENV_
+
+FOO_ENV_VAR=bar
+HELLO_ENV_VAR=world
 
 
-## Injecting Configuration from a Single File:
+## Configuration data as files
+- Another interesting way to consume configuration data is by pointing to a ConfigMap in the spec.volumes section of your Deployment or Pod spec.
+- ConfigMap is useless by itself. It is yet another Volume which, like all the others, needs a mount.
+- volumes are a way of abstracting your container from the underlying storage system e.g. it could be a local disk or in the cloud such as Azure Disk, GCP Persistent Disk etc.
 
+![image](https://user-images.githubusercontent.com/33947539/141666673-f7a9f18e-68bd-4f31-8521-2e78191b870c.png)
+![image](https://user-images.githubusercontent.com/33947539/141666693-8cfd6e7c-3820-4417-8a3f-2297392f7593.png)
+
+> In the above spec, pay attention to the **spec.volumes section** — notice that it refers to an existing ConfigMap. 
+> Each key in the ConfigMap is added as a file to the directory specified in the spec **i.e. spec.containers.volumeMount.mountPath** and the value is nothing but the contents of the file.
+
+## Configurations as Json
+![image](https://user-images.githubusercontent.com/33947539/141666965-87dfb82e-af47-4249-9192-ac222a3a87f4.png)
+![image](https://user-images.githubusercontent.com/33947539/141666974-0f564739-21d3-45f3-b2eb-bfa226109799.png)
+
+## Using --from-literal to seed config data
+👉 kubectl create configmap config4 --from-literal=foo_env=bar --from-literal=hello_env=world
+
+## Creating a ConfigMap from a Directory
+👉 kubectl create cm my-config --from-file=cm
+
+We created my-config ConfigMap with the directory cm. Let’s describe it, and see what’s inside.
+👉 kubectl describe cm my-config
+
+The output is as follows (content of the files is removed for brevity).
+![image](https://user-images.githubusercontent.com/33947539/141667724-03198f15-aab3-49d9-84e6-e38db9f677a3.png)
+
+👉 kubectl create -f cm/alpine.yml
+
+> Run the below command separately after the "alpine" container is created
+
+👉 kubectl exec -it alpine --ls /etc/config
+
+> The output of the latter command is as follows:
+
+alpine-env-all.yml alpine.yml      prometheus-conf.yml
+alpine-env.yml     my-env-file.yml prometheus.yml
+
+## Reference
+- https://github.com/vfarcic/k8s-specs.git
