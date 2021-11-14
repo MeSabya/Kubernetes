@@ -1,7 +1,17 @@
+Kubernetes natively supports 2 resources geared towards storing configuration consumed by pods. Both configuration types required data to be represented in a key:value pair format.
+- Config Maps: use to store non-confidential data
+- Secrets: use to store confidential data (tokens, SSH keys, passwords, certificates, etc)
+
 To configure your apps in Kubernetes, you can use:
 - Good old environment variables
 - ConfigMap
 - Secret
+
+> Config maps are not suited for storing large quantities of data. Please use external storage for this purpose. As a side-note, etcd, key-value store where Kubernetes stores all its state can only hold resources up to 1MN in size.
+**Secrets in Kubernetes are actually not encrypted, but rather base64 encoded**, so best for storing critical sensitive information, recommendation is to use key vaults such as Hashicorp Vault with Helm sidecar or native offerings from public cloud providers, like Azure Key Vault.
+
+- ❗ Updates to config maps or secrets reflects in pods automatically applies only to configuration or secrets mounted to pods as volumes
+- ❗ If you would like to reflect changes in environmental variables injected from configs or secrets, manual pod restart is required
 
 ## Using Environment Variables for configuration
 ❗Environment variables fit well into distributed systems. They are easy to define, and they are portable. They are the ideal choice for configuration mechanism of new applications.
