@@ -39,3 +39,4 @@
  - [ ] [Question Banks](https://luafanti.medium.com/certified-kubernetes-application-developer-ckad-everything-you-need-to-know-30eb5c2f70ba)
  - [ ] [CKAD Resources](https://github.com/lucassha/CKAD-resources)
  [K8 CheetSheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+![image](https://user-images.githubusercontent.com/33947539/141737901-fddbbc91-f15c-4016-bb86-fa2429459b56.png)
