@@ -88,3 +88,4 @@ alpine-env.yml     my-env-file.yml prometheus.yml
 
 ## Reference
 - https://github.com/vfarcic/k8s-specs.git
+- https://betterprogramming.pub/how-to-use-kubernetes-secrets-for-storing-sensitive-config-data-f3c5e7d11c15
