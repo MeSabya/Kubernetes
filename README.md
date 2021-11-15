@@ -40,3 +40,5 @@
  - [ ] [CKAD Resources](https://github.com/lucassha/CKAD-resources)
  [K8 CheetSheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 ![image](https://user-images.githubusercontent.com/33947539/141737901-fddbbc91-f15c-4016-bb86-fa2429459b56.png)
+![image](https://user-images.githubusercontent.com/33947539/141753451-08e20233-c0ba-4c71-984d-0b8d993a7d5a.png)
+![image](https://user-images.githubusercontent.com/33947539/141753521-4fbfd26a-2d05-45a8-8cfa-41c5d0c251ea.png)
