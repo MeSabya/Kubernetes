@@ -37,5 +37,5 @@
  - [ ] [ckad-practice-questions](https://dev.to/liptanbiswas/ckad-practice-questions-4mpn)
  - [ ] [Practice Questions](https://www.katacoda.com/courses/kubernetes)
  - [ ] [Question Banks](https://luafanti.medium.com/certified-kubernetes-application-developer-ckad-everything-you-need-to-know-30eb5c2f70ba)
- 
+ - [ ] [CKAD Resources](https://github.com/lucassha/CKAD-resources)
  [K8 CheetSheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
