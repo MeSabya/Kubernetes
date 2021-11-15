@@ -33,5 +33,9 @@
  - [ ] [K8 exam simulator] (https://killer.sh/ckad)
  - [ ] [Material] (https://kodekloud.com/courses/certified-kubernetes-application-developer-ckad/)
  - [ ] [CKAD Syllabus] (https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_v1.22.pdf)
+ - [ ] [ckad-prep-notes](https://github.com/twajr/ckad-prep-notes)
+ - [ ] [ckad-practice-questions](https://dev.to/liptanbiswas/ckad-practice-questions-4mpn)
+ - [ ] [Practice Questions](https://www.katacoda.com/courses/kubernetes)
+ - [ ] [Question Banks](https://luafanti.medium.com/certified-kubernetes-application-developer-ckad-everything-you-need-to-know-30eb5c2f70ba)
  
  [K8 CheetSheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
