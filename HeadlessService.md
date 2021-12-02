@@ -28,7 +28,7 @@ to the pods backing it.
 ## Some Practical in Action:
 
 **Deployment config**
-
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -50,9 +50,10 @@ spec:
         image: nginx:alpine
         ports:
         - containerPort: 80
-
+```
 **Regular Service**
 
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -64,9 +65,9 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-
+```
 **Headless Service**
-
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -79,7 +80,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-
+```
 ### Create all resources and run tmp pod.
 
 - k run tmp01 --image=tutum/dnsutils -- sleep infinity
