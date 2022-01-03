@@ -26,7 +26,8 @@
 - https://github.com/vfarcic/k8s-specs.git
  
  ## CKAD Prepration material:
- - [ ] [Practice Questions](https://medium.com/bb-tutorials-and-thoughts/practice-enough-with-these-questions-for-the-ckad-exam-2f42d1228552)
+ - [Practice Questions-2](https://github.com/bmuschko/ckad-crash-course)
+ - [ ] [Practice Questions-1](https://medium.com/bb-tutorials-and-thoughts/practice-enough-with-these-questions-for-the-ckad-exam-2f42d1228552)
  - [ ] [ CKAD Exercises](https://github.com/dgkanatsios/CKAD-exercises)
  - [ ] [Network Policy in K8s](https://github.com/ahmetb/kubernetes-network-policy-recipes)
  - [ ] [Practice Challnges](https://www.katacoda.com/liptanbiswas/courses/ckad-practice-challenges)
