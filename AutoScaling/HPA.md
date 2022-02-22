@@ -39,6 +39,25 @@ In simple terms, HPA works in a “check, update, check again” style loop. Her
 - If you don’t efficiently set CPU and memory limits on pods, your pods may terminate frequently or, on the other end of the spectrum, you’ll waste resources.
 - If the cluster is out of capacity, HPA can’t scale up until new nodes are added to the cluster. Cluster Autoscaler (CA) can automate this process. We have an article dedicated to CA; however, below is a quick contextual explanation.
 
+## What is Metrics Server?
+
+- Early on, Kubernetes introduced Heapster as a tool that enables Container Cluster Monitoring and Performance Analysis for Kubernetes.
+- It collects and interprets various metrics like resource usage, events, and so on. Heapster has been an integral part of Kubernetes and enabled it to schedule Pods appropriately.
+- Right now, even though Heapster is still in use, it is considered deprecated, **Metrics Server is currently used now**.
+
+- *A simple explanation is that it collects information about used resources (memory and CPU) of nodes and Pods. It does not store metrics, so do not think that you can use it to retrieve historical values and predict tendencies.*
+- Metrics Server's goal is to provide an API that can be used to retrieve current resource usage.the Metrics Server collects cluster-wide metrics and allows us to retrieve them through its API.
+
+### Why do I need the Metrics Server?
+Although the Metrics Server misses all the glitter and glamour compared the rest of Monitoring tools offer with visualization and dashboard, if you use features such as Horizontal Pod AutoScaler, Vertical Pod AutoScaler, kubectl top, or Kubernetes Dashboard then you do need the Metrics Server to provide resource utilization metrics for them.
+
+### How to view the Metrics Server?
+There are two ways to capture the information in the Metrics Server.
+
+        kubectl top command 
+        Metrics endpoints /apis/metrics.k8s.io/v1beta1
+
+
 
 ### References:
 https://www.kubecost.com/kubernetes-autoscaling/kubernetes-hpa/#how-does-hpa-work-3
