@@ -61,5 +61,5 @@ https://medium.com/the-programmer/working-with-node-affinity-in-kubernetes-40bc7
 https://thenewstack.io/implement-node-and-pod-affinity-anti-affinity-in-kubernetes-a-practical-example/
  
 https://www.magalix.com/blog/influencing-kubernetes-scheduler-decisions
-
+https://docs.openshift.com/container-platform/4.9/nodes/scheduling/nodes-scheduler-pod-affinity.html
  
