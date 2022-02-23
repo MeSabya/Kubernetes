@@ -58,8 +58,8 @@ affinity:
 ### Reference:
 
 https://medium.com/the-programmer/working-with-node-affinity-in-kubernetes-40bc79d16f2f
-
+https://thenewstack.io/implement-node-and-pod-affinity-anti-affinity-in-kubernetes-a-practical-example/
  
-
+https://www.magalix.com/blog/influencing-kubernetes-scheduler-decisions
 
  
