@@ -29,6 +29,9 @@ When a pod is deleted, Kubernetes has to:
 
 ![image](https://user-images.githubusercontent.com/33947539/155293433-40a45d25-8b4d-4c8d-8891-0cdccbc5d9ce.png)
 
+![image](https://user-images.githubusercontent.com/33947539/155297667-4ca59631-78c8-4e1c-8b79-a44d33581338.png)
+
+
 - When the API Server receives the request to delete the pod, it updates the state of the pod to Terminating. 
 - The kubelet is notified of this event, which in turn sends SIGTERM to the corresponding containers associated with the pod.
 - When the Endpoint object is updated in the control plane, the event is published to kube-proxy, Ingress Controller, DNS and Service Mesh.
