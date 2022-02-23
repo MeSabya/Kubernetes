@@ -103,5 +103,15 @@ spec:
 
 ☝️ Setting a value for php-fpm lower than nginx means that when the pod receives traffic after the php-fpm container is terminated and nginx container is still within the sleep duration, the request would fail with a 5xx error. Setting a sleep value for the php-fpm container higher than nginx is safer and ensures that no requests will fail.
 
+#### Summary of pod termination with grace
+```Lua
+1. Pod is set to the “Terminating” State and removed from the endpoints list of all Services
+2. preStop Hook is executed.
+3. SIGTERM signal is sent to the pod
+4. Kubernetes waits for a grace period.
+5. SIGKILL signal is sent to pod, and the pod is removed
+
+```
+
 
 
