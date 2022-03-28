@@ -21,10 +21,20 @@ Two specific volume types that are dependent on host-based storage are emptyDir 
 - A common storage area for sharing configuration settings and metadata across multiple containers of the same pod.
 - A well-known storage location for containers to store and forward data. A crawler container might populate the volume periodically, while the web server is responding to the 
   requests.
+ 
+ #### Step 1: Create a Pod with the below manifest file:
+  ![image](https://user-images.githubusercontent.com/33947539/160400668-e79632c4-03ff-482d-bff2-e3789ef591b2.png)
   
+The above manifest file is described as follow:
+![image](https://user-images.githubusercontent.com/33947539/160400829-4d1026d6-e14a-444b-8c15-c64f40048170.png)
+
+![image](https://user-images.githubusercontent.com/33947539/160401579-fbddd0d9-3e26-4eee-b446-9fae0840b57e.png)
+
+
+
 ### HostPath
-- A hostPath volume mounts a file or directory from the node's filesystem into the Pod. 
-- You should NOT use hostPath volume type for StatefulSets
+hostPath volume type is a durable volume type that mounts a directory from the host Node’s filesystem into a Pod. 
+The file in the volume remains intact even if the Pod crashes, is terminated or is deleted. It is important that the directory and the Pod are created or scheduled on the same Node. 
 
 You can specify whether the file/directory must already exist on the node or should be created on pod startup. 
 You can do it using a type attribute in the config file:
@@ -38,12 +48,19 @@ You can do it using a type attribute in the config file:
 
 Other values for type are DirectoryOrCreate, File, FileOrCreate. Where *OrCreate will be created dynamically if it doesn't already exist on the host.
 
-
-
 **Some uses for a hostPath are:**
 
 - Running a Container that needs access to Docker internals; use a hostPath of /var/lib/docker
 - Running cAdvisor in a Container; use a hostPath of /sys
+
+#### How to Create and use a hostPath Volume in a Pod
+![image](https://user-images.githubusercontent.com/33947539/160402071-81155e21-3e34-443e-8901-686dbf9f2058.png)
+
+#### References:
+https://www.kubermatic.com/blog/keeping-the-state-of-apps-1-introduction-to-volume-and-volumemounts/
+
+#### Why we need non host based storage when we have hostpath ??
+A hostPath volume mounts a file or directory from the host node's filesystem into your Pod. So, if you have a multi-node cluster, the pod is restarted for some reasons and assigned to another node, the new node won't have the old data on the same path. That's why we have seen, that hostPath volumes work well only on single-node clusters.
 
 ## Details on non-host-based storage:
 
@@ -55,6 +72,8 @@ Other values for type are DirectoryOrCreate, File, FileOrCreate. Where *OrCreate
 - A Persistent Volume is an abstraction for the physical storage device that you have attached to the cluster. Your pods can use this storage space using Persistent Volume Claims. The easiest way to create the PV/PVC pair for your Pod is to use a **StorageClass object**, and then using the storageclass to create your PV-PVC pair dynamically whenever you need to use it.
 
 ![image](https://user-images.githubusercontent.com/33947539/139818756-d2f3c0a5-280f-4ef4-a0dc-a4083aa9f5bc.png)
+
+
 
 # Persistent Volume Claim
 A persistent volume claim is a dedicated storage that kubernetes has carved out for your application pod, from the storage that was made available using the storage class.
