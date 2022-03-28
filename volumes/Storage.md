@@ -48,6 +48,9 @@ You can do it using a type attribute in the config file:
 
 Other values for type are DirectoryOrCreate, File, FileOrCreate. Where *OrCreate will be created dynamically if it doesn't already exist on the host.
 
+![image](https://user-images.githubusercontent.com/33947539/160403040-54cd505a-de40-452b-a766-f14f7bd7f97d.png)
+
+
 **Some uses for a hostPath are:**
 
 - Running a Container that needs access to Docker internals; use a hostPath of /var/lib/docker
