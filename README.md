@@ -1,3 +1,19 @@
+ # Kubernetes Basics Table of Content:
+ 1. Kubernetes Architecture in detail
+ 2. Kubernetes controllers
+   - Replicaset 
+   - Deployment 
+   - Statefulset 
+   - jobs 
+3. Volumes 
+4. Services (Network)
+5. HealthChecks 
+6. Configuration (Configmaps and secrets).
+7. Memory and CPU constraint.
+8. Microservice Design Pattern.(init, sidecar)
+9. Pod Placement and schedulling. 
+10. Security in K8
+ 
  ## Kubernetes Study Content
  1. [Deployments-vs-Statefulsets-vs-Daemonsets](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#deployments-vs-statefulsets-vs-daemonsets)
     1. [Deployments](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#deployments)
