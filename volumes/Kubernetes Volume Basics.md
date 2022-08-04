@@ -105,15 +105,15 @@ Our example mounts the emptyDir at the mountPath: /demo
 The name: demo-volume must refer to the volume at the bottom of the Pod spec. It specifies : mount demo-volume at /demo in the container.
 
 ### Usecase:
-In my project there is a python component (deployed as a ststefulset) which consists of 4 containers , namely : MDW, OS-Pack, RKT, MAG. 
-MAG, RKT conatiner needs a bunch of cache files to execute a proper regression test case. 
+In my project there is a python component (deployed as a statefulset) which consists of 4 containers , namely : MDW, OS-Pack, RKT, MAG. 
+MAG, RKT conatiner needs a bunch of static configuration files/cache files to execute a proper regression test case. Configmap cannot be used as it will be a lot of files. 
 
 #### To Solve this issue:
-To be able to have some cache files , we created a dedicated docker container with these cache files and push them to shared openshift volumes so that containers can read them
+We created a dedicated docker container with these configuration files/cache files and push them to shared openshift volumes so that containers can read them
 So we introduced another container called GMC-Cache. Basically this container has all the cache files loaded at /projects/cache path.
 
 Basically the flow goes like this :
-MAG and RKT needs cache files. Cache files are present in another container gmc-cache. Now two questions arises:
+MAG and RKT needs cache files. Cache files are present in another container gmc-cache. Now two questions arise:
 
 ##### 1. How gmc-cache get those cache files at /projects/cache path? 
 
@@ -285,3 +285,27 @@ Instead, consider using a Local Persistent Volume for this kind of use cases.
 
 The biggest difference is that the Kubernetes scheduler understands which node a Local Persistent Volume belongs to. With HostPath volumes, a pod referencing a HostPath volume may be moved by the scheduler to a different node resulting in data loss. 
 But with Local Persistent Volumes, the Kubernetes scheduler ensures that a pod using a Local Persistent Volume is always scheduled to the same node.
+
+
+## Persistent Volumes (PVs)
+
+#### Defination:
+A persistent volume (PV) is a cluster-wide resource that you can use to store data in a way that it persists beyond the lifetime of a pod. The PV is not backed by locally-attached storage on a worker node but by networked storage system such as EBS or NFS or a distributed filesystem like Ceph.
+
+### When To Use Persistent Volumes?
+
+You should use a persistent volume whenever you have data that needs to outlive individual pods. Unless the data is transitory or specific to a single container, it’s usually best stored in a persistent volume.
+
+#### Here are some common use cases:
+
+**Database storage**: Data in a database should always be stored in a persistent volume so it persists beyond the containers that run the server. You don’t want to wipe your users’ data each time the pod restarts.
+
+**Log storage**: Writing container log files to a persistent volume ensures they’ll be available after a crash or termination. If they’re not written to a persistent volume, the crash will destroy the logs that could have helped you debug the issue.
+
+**Protection of important data**: Persistent volumes let you avoid accidental data deletion. They include safeguards that prohibit the removal of volumes that are actively used by pods.
+
+**Data independent of pods**: Persistent volumes make sense whenever your data is of primary importance in your cluster. They give you the tools to manage data independently of application containers, making it easier to handle backups, performance, and storage capacity allocations.
+
+
+
+
