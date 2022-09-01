@@ -107,6 +107,8 @@ Consider this example of an Ingress, which defines how the URL path /foo should 
 
 Ultimately, the two paths, /foo and /bar, are served by a common IP address and domain name, such as example.com/foo and example.com/bar. This is essentially the API Gateway pattern. In an API Gateway, a single address routes requests to multiple backend applications.
 
+## References
+https://matthewpalmer.net/kubernetes-app-developer/articles/kubernetes-ingress-guide-nginx-example.html
 
 
 
