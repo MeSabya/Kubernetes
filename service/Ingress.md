@@ -93,3 +93,19 @@ There are dozens of available ingress controllers in the Kubernetes ecosystem, a
 
 Different ingress controllers build on these concepts and add their own functionality and features
 
+Ingress controllers are pods, just like any other application, so they’re part of the cluster and can see other pods.
+
+**Ingress Controllers are susceptible to the same walled-in jail as other Kubernetes pods. You need to expose them to the outside via a Service with a type of either NodePort or LoadBalancer. However, now you have a single entrypoint that all traffic goes through: one Service connected to one Ingress Controller, which, in turn, is connected to many internal pods. The controller, having the ability to inspect HTTP requests, directs a client to the correct pod based on characteristics it finds, such as the URL path or the domain name.**
+
+Consider this example of an Ingress, which defines how the URL path /foo should connect to a backend service named foo-service, while the URL path /bar is directed to a service name bar-service.
+
+![image](https://user-images.githubusercontent.com/33947539/187853817-3866f7f1-3835-40e2-a687-1a3a980ef956.png)
+
+Ultimately, the two paths, /foo and /bar, are served by a common IP address and domain name, such as example.com/foo and example.com/bar. This is essentially the API Gateway pattern. In an API Gateway, a single address routes requests to multiple backend applications.
+
+
+
+
+
+
+
