@@ -37,6 +37,10 @@ Many cloud-based Kubernetes deployments prefer LoadBalancer because it supports 
 
 The downside of LoadBalancer is primarily the cost. By default, it assigns an individual external IP address to every service, and then each IP needs its own external load balancer configured in the cloud. This can feel like overkill, especially when you’re running multiple services on every cluster, which is basically the standard in Kubernetes. The costs of a large pool of IP addresses and load balancers will quickly add up as your Kubernetes environment grows, which can limit your scalability.
 
+***Some popular Kubernetes load balancer strategies include:***
+
+![image](https://user-images.githubusercontent.com/33947539/187860028-f1ea40c7-7543-4e4b-88bb-676980a14780.png)
+
 ## Ingress
 
 👉 Ingress is actually NOT a type of service. Instead, it sits in front of multiple services and act as a “smart router” or entrypoint into your cluster.
