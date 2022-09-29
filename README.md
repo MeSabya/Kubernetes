@@ -13,6 +13,32 @@
 8. Microservice Design Pattern.(init, sidecar)
 9. Pod Placement and schedulling. 
 10. Security in K8
+
+![image](https://user-images.githubusercontent.com/33947539/192934688-1b8bfce5-4a07-4f65-8662-5f68428e917c.png)
+
+Glossary:- 
+=========
+- Images
+- Pods
+- Labels and Selectors
+- Replication Controller
+- Services
+- Volumes
+- Persistent Volumes
+- Secrets
+- Names
+- Namespaces
+- Nodes
+- Security Context
+- Service Accounts
+- Annotations
+- Daemon Sets
+- Deployments
+- Ingress Resources
+- Horizontal Pod Autoscaling
+- Jobs
+- Resource Quotas
+- Replica Sets
  
  ## Kubernetes Study Content
  1. [Deployments-vs-Statefulsets-vs-Daemonsets](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#deployments-vs-statefulsets-vs-daemonsets)
@@ -59,20 +85,37 @@
  
 # Links I find interesting to CKAD topic
 https://codeburst.io/kubernetes-ckad-hands-on-challenge-13-replicaset-without-downtime-a9468d1fa994
+
 https://codeburst.io/kubernetes-ckad-weekly-challenge-7-migrate-a-service-68c7af41c8df
+
 https://codeburst.io/kubernetes-ckad-weekly-challenges-overview-and-tips-7282b36a2681
+
 https://codeburst.io/the-ckad-browser-terminal-10fab2e8122e
+
 https://en.sokube.ch/post/kubernetes-tips-for-your-ckad-exam-by-cncf
+
 https://github.com/AmundsenJunior/yet-another-ckad-training-resource/blob/master/Udemy-CKAD-Practice.md
+
 https://github.com/dgkanatsios/CKAD-exercises
+
 https://github.com/topics/ckad-exercises
+
 https://itnext.io/practical-tips-for-passing-ckad-exam-6cbdf2d35cb1
+
 https://matthewpalmer.net/kubernetes-app-developer/#purchase-the-ebook
+
 https://matthewpalmer.net/kubernetes-app-developer/articles/ckad-practice-exam.html
+
 https://medium.com/@milan.das77/how-to-pass-ckad-cka-on-your-first-attempt-1c19e6c20335
+
 https://medium.com/bb-tutorials-and-thoughts/practice-enough-with-these-questions-for-the-ckad-exam-2f42d1228552
+
 https://medium.com/faun/kubernetes-ckad-weekly-challenge-2-namespaces-deployments-and-services-de1ede24679a
+
 https://www.katacoda.com/ckad-prep/scenarios/first-steps
+
 https://www.katacoda.com/fabito/scenarios/ckad
+
 https://www.katacoda.com/fabito/scenarios/ckad
+
 https://www.reddit.com/r/kubernetes/comments/kl1h4m/ckad_exam_laptop_setup_query/
