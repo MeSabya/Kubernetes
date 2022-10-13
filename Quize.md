@@ -114,3 +114,32 @@ spec:
 status: {}
 EOF
 ```
+
+## Problem
+Find the name of pod which is using most CPU across all namespaces. Enter the name of pod in /root/high-cpu.yaml.
+
+### Ans
+Run kubectl top po -A --sort-by=cpu and put the name of first pod to /root/high-cpu.yaml file.
+
+## Problem
+Pod and Service geonosis is created for you. Create a network policy geonosis-shield which allows only pods with label empire=true to access the service. Use appropriate labels.
+
+### Ans
+```yaml
+cat << EOF > geonosis-shield.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: geonosis-shield
+spec:
+  podSelector:
+    matchLabels:
+      sector: arkanis
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          empire: "true"
+EOF
+```
+
