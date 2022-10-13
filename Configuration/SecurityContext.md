@@ -41,3 +41,32 @@ Security context can only define permissions for pods or containers. It can’t 
 Of course, most of the rules that you can apply with security contexts would only make sense when applied to containers or pods. It wouldn’t make sense to tell a node to run in unprivileged mode, for instance.
 
 Still, the point here is that security context is a tool only for addressing security issues at the pod or container level. You’ll need other tools (like RBAC) to secure nodes, users, service accounts, and the like.
+
+## Quizes
+
+```shell
+Create a Pod named secure-pod. Use redis image. Run pod as user 1000 and group 2000.
+```
+
+```yaml
+cat << EOF > secure-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: secure-pod
+  name: secure-pod
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 2000
+  containers:
+  - image: redis
+    name: secure-pod
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+EOF
+```
