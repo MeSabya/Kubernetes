@@ -87,4 +87,30 @@ kubectl logs myenv > /root/myenv.log
 
 kubectl delete po myenv
 
+## Problem 
+Create a pod httptest with image kennethreitz/httpbin. Define a readiness probe at path /status/200 on port 80 of the container.
 
+### Ans
+```yaml
+cat << EOF > httptest.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: httptest
+  name: httptest
+spec:
+  containers:
+  - image: kennethreitz/httpbin
+    name: httptest
+    readinessProbe:
+      httpGet:
+        path: /status/200
+        port: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+EOF
+```
