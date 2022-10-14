@@ -63,15 +63,16 @@ Glossary:-
    3. [Rollingupdate UseCase](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#deployment-usecase-analysis)
    4. [Kubernetes Pod Affinity and Anti-Affinity](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#kubernetes-pod-affinity-and-anti-affinity)
    5. [Deployment Commands](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#commands-used-in-deployment)
-6. Volumes
-  1. [filesystem-vs-volume-vs-persistent-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#filesystem-vs-volume-vs-persistent-volume)
-  2. [the-emptydir-ephemeral-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#the-emptydir-ephemeral-volume)
-  3. [empty dir usecase](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#usecase)
-  4. [hostpath-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#hostpath-volume)
-  5. [persistent-volumes-pvs](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#persistent-volumes-pvs)
-  6. [persistent-volume-claim](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#persistent-volume-claim)
-  7. [what-is-the-difference-between-persistent-volume-pv-and-persistent-volume-claim-pvc-in-simple-terms](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#what-is-the-difference-between-persistent-volume-pv-and-persistent-volume-claim-pvc-in-simple-terms)
-  8. [details-on-persistent-volume-claim](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#details-on-persistent-volume-claim) 
+
+#### Volumes
+   1. [filesystem-vs-volume-vs-persistent-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#filesystem-vs-volume-vs-persistent-volume)
+   2. [the-emptydir-ephemeral-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#the-emptydir-ephemeral-volume)
+   3. [empty dir usecase](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#usecase)
+   4. [hostpath-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#hostpath-volume)
+   5. [persistent-volumes-pvs](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#persistent-volumes-pvs)
+   6. [persistent-volume-claim](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#persistent-volume-claim)
+   7. [what-is-the-difference-between-persistent-volume-pv-and-persistent-volume-claim-pvc-in-simple-terms](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#what-is-the-difference-between-persistent-volume-pv-and-persistent-volume-claim-pvc-in-simple-terms)
+   8. [details-on-persistent-volume-claim](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#details-on-persistent-volume-claim) 
  
 ## References:
 - https://github.com/vfarcic/k8s-specs.git
