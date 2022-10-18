@@ -45,13 +45,16 @@ The downside of LoadBalancer is primarily the cost. By default, it assigns an in
 
 👉 Ingress is actually NOT a type of service. Instead, it sits in front of multiple services and act as a “smart router” or entrypoint into your cluster.
 
-An ingress is really just a set of rules to pass to a controller that is listening for them. You can deploy a bunch of ingress rules, but nothing will happen unless you have a controller that can process them. A LoadBalancer service could listen for ingress rules, if it is configured to do so.
+*An ingress is really just a set of rules to pass to a controller that is listening for them.*
+You can deploy a bunch of ingress rules, but nothing will happen unless you have a controller that can process them. A LoadBalancer service could listen for ingress rules, if it is configured to do so.
 
 You can also create a NodePort service, which has an externally routable IP outside the cluster, but points to a pod that exists within your cluster. This could be an Ingress Controller.
 
-There are a few things to keep in mind when creating an ingress. First, they are designed to handle web traffic (HTTP or HTTPS). While it is possible to use an ingress with other types of protocols, it typically requires extra configuration.
+***There are a few things to keep in mind when creating an ingress.***
 
-Second, an ingress can do more than just routing. Some other use cases include load balancing and SSL termination.
+👉 First, they are designed to handle web traffic (HTTP or HTTPS). While it is possible to use an ingress with other types of protocols, it typically requires extra configuration.
+
+👉 Second, an ingress can do more than just routing. Some other use cases include load balancing and SSL termination.
 
 Most importantly, the ingress object by itself does not actually do anything. So, for an ingress to actually do anything, we need to have an ingress controller available.
 
