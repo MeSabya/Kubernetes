@@ -40,6 +40,8 @@ Glossary:-
 - Resource Quotas
 - Replica Sets
  
+ ![image](https://user-images.githubusercontent.com/33947539/201166537-d1dcb904-c0c5-4cf9-a813-2dd6c7e26373.png)
+
  ## Kubernetes Study Content
  1. [Deployments-vs-Statefulsets-vs-Daemonsets](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#deployments-vs-statefulsets-vs-daemonsets)
     1. [Deployments](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#deployments)
