@@ -21,14 +21,15 @@ spec:
 
 Just like our earlier service example, here, we're creating a service that routes traffic to any pod running our API application. In this case, we've included a LoadBalancer configuration.
 
-For this to work, the cluster must be running on a provider that supports external load balancers. All of the major cloud providers support external load balancers using their own resource types:
+👉 For this to work, the cluster must be running on a provider that supports external load balancers. All of the major cloud providers support external load balancers using their own resource types:
 
-AWS uses a Network Load Balancer
-GKE also uses a Network Load Balancer
-Azure uses a Public Load Balancer
+- AWS uses a Network Load Balancer
+- GKE also uses a Network Load Balancer
+- Azure uses a Public Load Balancer
+
 Just like we saw with different ingress controllers, different load balancer providers have their own settings. Typically, we manage these settings directly with either a CLI or tool specific to the infrastructure rather than with YAML. Different load balancer implementations will also provide additional features such as SSL termination.
 
-Because load balancers are defined per service, they can only route to a single service. This is different from an ingress, which has the ability to route to multiple services inside the cluster.
+👉 **Because load balancers are defined per service, they can only route to a single service. This is different from an ingress, which has the ability to route to multiple services inside the cluster.**
 
 Also, keep in mind that regardless of the provider, using an external load balancer will typically come with additional costs. This is because, unlike ingresses and their controllers, external load balancers exist outside of the Kubernetes cluster. Because of this, most cloud providers will charge for the additional resource usage beyond the cluster itself.
 
