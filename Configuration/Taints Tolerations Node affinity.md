@@ -31,3 +31,17 @@ with certain tolerations.**
 
 let us also take a look at an interesting fact.  
 So far we have only been referring to the worker nodes  but we also have master nodes in the cluster,  which is technically just another node  that has all the capabilities of hosting a pod,  plus it runs all the management software.  Now, I'm not sure if you noticed  the scheduler does not schedule any pods on the master node.  Why is that?  When the Kubernetes cluster is first set up,  a taint is set on the master node automatically  that prevents any pods from being scheduled on this node.  You can see this,  as well as modifies this behavior if required.  However, a best practice is to not deploy  application workloads on a master server.  To see this taint run a cube control  describe node command with Q master as the node name  and look for the taint section.  You will see a taint set to not schedule any pods  on the master node.  Well, that's it for this lecture.  Head over to the coding exercises section  and practice working with taints and tolerations.  information
+
+## Commands 
+
+### How to taint a node
+
+```yaml
+kubectl taint nodes minikube application=example:NoSchedule
+```
+
+### How to untaint a node
+
+```yaml
+kubectl taint nodes minikube application=example:NoSchedule-
+```
