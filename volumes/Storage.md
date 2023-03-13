@@ -136,6 +136,8 @@ Persistent volume consist of storage capacity, volume type, reclaim policy and a
     by the next pod.
 
 **Access Modes**: There are three of them: 
+These specifies how a volume is mounted to a host.
+
 - RWO — ReadWriteOnce: Only a single node can mount the volume for reading and writing. 
 - ROX — ReadOnlyMany: Multiple nodes can mount the volume for reading. 
 - RWX — ReadWriteMany : Multiple nodes can mount the volume for both reading and writing.
