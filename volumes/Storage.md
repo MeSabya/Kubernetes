@@ -127,6 +127,7 @@ Persistent volume consist of storage capacity, volume type, reclaim policy and a
 - hostPath — Used for mounting directories from the worker node’s filesystem into the pod.
 
 **Reclaim Policy**: It’s define what to do with the volume after the bound is broken from the persistent volume claim. 
+It defines in case the persistent claim is deleted , what will happen to the persistent volume. By default the value is Retain. 
 
  **There are three policies**: 
  1. Delete: PersistentVolume will be deleted when the PVC is deleted but data will persist. 
