@@ -4,6 +4,8 @@ cAdvisor stands for container advisor. As it is evident from the name it provide
 
 In Kubernetes cAdvisor is integrated into the Kubelet binary. It is pretty intelligent to auto-discover all the containers running in the machine & collect CPU, memory, file system & network usage statistics. It also provides a comprehensive overall machine usage by analyzing the root container.
 
+cAdvisor exposes container statistics as Prometheus metrics intrinsically. Jobs are configured in Prometheus to connect with cAdvisor.
+
 ### What is kubelet 
 A Kubelet kind of manages things on the cluster. It manages the pods & the containers on a machine. It is responsible for fetching individual container usage statistics from cAdvisor. The collected data is exposed via REST API
 
