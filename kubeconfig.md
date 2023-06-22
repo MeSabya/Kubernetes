@@ -83,6 +83,76 @@ contexts:
   name: production-admin
 ```
 
+By default there is one user, one context, one namespace defined in the default config file.
+
+### Commands for kube config 
+
+#### How to check current config file that is in use 
+```yaml
+kubectl config view
+```
+#### How to change the current context 
+
+```yaml
+kubectl config use-context <context name>
+```
+#### I would like to use the dev-user to access test-cluster-1. Set the current context to the right one so I can do that.
+
+Note that : We should not use the default config here , rather we should use the another context And some part of the current config is:
+
+```yaml
+contexts:
+- name: test-user@development
+  context:
+    cluster: development
+    user: test-user
+
+- name: aws-user@kubernetes-on-aws
+  context:
+    cluster: kubernetes-on-aws
+    user: aws-user
+
+- name: test-user@production
+  context:
+    cluster: production
+    user: test-user
+
+- name: research
+  context:
+    cluster: test-cluster-1
+    user: dev-user
+
+users:
+- name: test-user
+  user:
+    client-certificate: /etc/kubernetes/pki/users/test-user/test-user.crt
+    client-key: /etc/kubernetes/pki/users/test-user/test-user.key
+- name: dev-user
+  user:
+    client-certificate: /etc/kubernetes/pki/users/dev-user/developer-user.crt
+    client-key: /etc/kubernetes/pki/users/dev-user/dev-user.key
+- name: aws-user
+  user:
+    client-certificate: /etc/kubernetes/pki/users/aws-user/aws-user.crt
+    client-key: /etc/kubernetes/pki/users/aws-user/aws-user.key
+```
+
+##### Answer is
+
+```yaml
+kubectl config --kubeconfig=/root/my-kube-config use-context research
+
+To know the current context, run the command: 
+kubectl config --kubeconfig=/root/my-kube-config current-context
+```
+
+
+
+
+
+
+
+
 
 
 
