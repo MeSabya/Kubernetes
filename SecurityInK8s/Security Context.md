@@ -73,3 +73,30 @@ EOF
 #### Explanation:
 
 runAsUser field specifies that for any Containers in the Pod, all processes run with user ID 1000. The runAsGroup field specifies the primary group ID of 3000 for all processes within any containers of the Pod.
+
+### Example2:
+
+```shell
+Run pod ubuntu-sleeper to run as Root user and with the SYS_TIME capability.
+```
+
+```yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper
+  namespace: default
+spec:
+  containers:
+  - command:
+    - sleep
+    - "4800"
+    image: ubuntu
+    name: ubuntu-sleeper
+    securityContext:
+      capabilities:
+        add: ["SYS_TIME"]
+```
+
+
