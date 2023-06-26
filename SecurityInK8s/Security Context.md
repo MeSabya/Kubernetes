@@ -70,3 +70,6 @@ spec:
 status: {}
 EOF
 ```
+#### Explanation:
+
+runAsUser field specifies that for any Containers in the Pod, all processes run with user ID 1000. The runAsGroup field specifies the primary group ID of 3000 for all processes within any containers of the Pod.
