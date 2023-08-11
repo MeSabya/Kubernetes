@@ -101,9 +101,8 @@ root@node01:~# journalctl -u kubelet
 .
 .
 May 30 13:08:20 node01 kubelet[4554]: E0530 13:08:20.141826    4554 run.go:74] "command failed" err="failed to construct kubelet dependencies: unable to load client CA file /etc/kubernetes/pki/WRONG-CA-FILE.crt: open /etc/kubernetes/pki/WRONG-CA-FILE.crt: no such file or directory"
-.
-.
 ```
+
 
 
 
