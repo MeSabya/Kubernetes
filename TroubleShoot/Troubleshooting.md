@@ -72,9 +72,10 @@ Since the kubelet is not running, From the logs status is:
 Active: inactive (dead) since Thu 2022-12-29 14:51:58 EST; 7min ago
 attempt to start it by running the following command:
 
-ssh node01 "service kubelet start"
 
 ```
+ssh node01
+
 root@node01:~> systemctl start kubelet
 
 root@node01:~> systemctl status kubelet
