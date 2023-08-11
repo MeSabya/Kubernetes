@@ -68,7 +68,9 @@ root@node01:~> systemctl status kubelet
    Main PID: 2085 (code=exited, status=0/SUCCESS)
 ```
 
-Since the kubelet is not running, attempt to start it by running the following command:
+Since the kubelet is not running, From the logs status is:
+Active: inactive (dead) since Thu 2022-12-29 14:51:58 EST; 7min ago
+attempt to start it by running the following command:
 
 ssh node01 "service kubelet start"
 
@@ -89,3 +91,20 @@ root@node01:~> systemctl status kubelet
 ```
 
 node01 should go back to ready state now.
+
+#### How to check logs for kubelet
+
+Since this is a systemd managed system, we can check the kubelet log by running journalctl command. Here is a snippet showing the error with kubelet:
+
+```
+root@node01:~# journalctl -u kubelet 
+.
+.
+May 30 13:08:20 node01 kubelet[4554]: E0530 13:08:20.141826    4554 run.go:74] "command failed" err="failed to construct kubelet dependencies: unable to load client CA file /etc/kubernetes/pki/WRONG-CA-FILE.crt: open /etc/kubernetes/pki/WRONG-CA-FILE.crt: no such file or directory"
+.
+.
+```
+
+
+
+
