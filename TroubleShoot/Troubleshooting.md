@@ -70,6 +70,8 @@ root@node01:~> systemctl status kubelet
 
 Since the kubelet is not running, attempt to start it by running the following command:
 
+ssh node01 "service kubelet start"
+
 ```
 root@node01:~> systemctl start kubelet
 
