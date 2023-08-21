@@ -144,5 +144,12 @@ In the above example, the context production-admin means — use the credentials
 
 Finally, there is one field in the kubeconfig called current-context that sets the default context to be used.
 
+### I would like to use the dev-user to access test-cluster-1. Set the current context to the right one so I can do that.
+
+```shell
+kubectl config --kubeconfig=/root/my-kube-config use-context research
+```
+
+
 
 
