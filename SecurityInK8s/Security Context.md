@@ -99,4 +99,6 @@ spec:
         add: ["SYS_TIME"]
 ```
 
+N:B 
+**Capabilities can only be added per container , not per pod.**
 
