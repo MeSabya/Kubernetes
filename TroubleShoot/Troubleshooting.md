@@ -104,6 +104,15 @@ root@node01:~# journalctl -u kubelet
 May 30 13:08:20 node01 kubelet[4554]: E0530 13:08:20.141826    4554 run.go:74] "command failed" err="failed to construct kubelet dependencies: unable to load client CA file /etc/kubernetes/pki/WRONG-CA-FILE.crt: open /etc/kubernetes/pki/WRONG-CA-FILE.crt: no such file or directory"
 ```
 
+## Some Important points 
+👉 Some important configurations are passed to kubelet from /var/lib/kubelet/config.yaml file. 
+
+👉 Control plane is running on the port 6443.
+
+👉 The config file used by the kubelet is located at /etc/kubernetes/kubelet.conf. It has some configs , and the controlplane port number is mentioned here.
+
+
+
 
 
 
