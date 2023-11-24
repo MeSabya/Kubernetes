@@ -120,8 +120,35 @@ $ curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${API
 ```
 
 
+## Default service account Path of pod
+
+In a Kubernetes cluster, the default service account tokens for pods are mounted as secrets inside each pod. The path to the default service account token and certificate authority (CA) bundle is typically:
+
+      Token: /var/run/secrets/kubernetes.io/serviceaccount/token
+      CA Bundle: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+These paths are automatically mounted by Kubernetes into each pod's filesystem. The service account token is used by the pod to authenticate itself to the Kubernetes API server, and the CA bundle is used to verify the identity of the API server.
 
 
+## What is authorization token in Sservice Account
+
+
+In Kubernetes, service accounts are used to provide an identity for processes that run in a pod. Each service account has an associated token that can be used for authentication and authorization when interacting with the Kubernetes API server.
+
+An authorization token in the context of a service account is a piece of information that represents the identity of the service account. This token is used by the pod to authenticate itself to the Kubernetes API server. When the pod makes requests to the API server, it includes this token in the request headers to prove its identity.
+
+### Token Location:
+The authorization token is typically mounted into the pod's filesystem at the path /var/run/secrets/kubernetes.io/serviceaccount/token. This path is automatically created and populated by Kubernetes.
+
+Here's a simplified example of how a pod might use the authorization token to interact with the Kubernetes API server:
+
+```bash
+# Get the token from the service account
+TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+# Make an API request with the token
+curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/pods
+```
 
 
 
