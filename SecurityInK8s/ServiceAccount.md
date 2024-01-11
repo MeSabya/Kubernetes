@@ -150,16 +150,65 @@ TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/pods
 ```
 
+## Along with the service account, why role and role binding was needed?
 
+In Kubernetes, a ServiceAccount is an identity that a pod can use to interact with the Kubernetes API server and other resources within the cluster. While a ServiceAccount provides an identity, it does not grant any permissions by itself. To control access to resources, you need to use Role (RBAC Role) and RoleBinding (RBAC RoleBinding) in combination with ServiceAccounts.
 
+Here's a brief explanation of each component:
 
+### ServiceAccount:
 
+A ServiceAccount is a Kubernetes object that represents an identity associated with a set of pods.
+Pods use ServiceAccounts to authenticate and authorize their interactions with the Kubernetes API server and other resources.
 
+### Role:
 
+A Role is a set of rules that define a set of permissions for accessing resources within a namespace.
+It is a way to grant permissions at the namespace level.
 
+### RoleBinding:
 
+A RoleBinding binds a Role to a ServiceAccount, associating the set of permissions defined in the Role with the ServiceAccount.
+It establishes the connection between a ServiceAccount and the set of rules defined in a Role.
 
+Let's see an example to illustrate why Role and RoleBinding are needed along with a ServiceAccount:
 
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-service-account
+  namespace: my-namespace
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pod-reader
+  namespace: my-namespace
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-pods
+  namespace: my-namespace
+subjects:
+- kind: ServiceAccount
+  name: my-service-account
+  namespace: my-namespace
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+In this example:
+
+- my-service-account is a ServiceAccount in the namespace my-namespace.
+- pod-reader is a Role that grants permissions to get and list pods within the namespace.
+- read-pods is a RoleBinding that binds the my-service-account ServiceAccount to the pod-reader Role.
 
 ## References
 
