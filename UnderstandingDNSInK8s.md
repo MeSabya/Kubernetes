@@ -160,7 +160,13 @@ The output should show the IP address of the Nginx pod. This demonstrates how DN
 
 In this example, CoreDNS automatically handles the DNS resolution for the Nginx service and pods. Kubernetes applications and services can use these DNS names to communicate with each other, making service discovery simpler and more abstracted from specific IP addresses.
 
+## Configuration for CoreDNS in a Kubernetes cluster
+The configuration for CoreDNS in a Kubernetes cluster is typically managed using ConfigMaps. The ConfigMap contains the CoreDNS configuration file, and you can customize it based on your requirements. The configuration file is named Corefile.
 
+In a standard Kubernetes installation, you can find the ConfigMap for CoreDNS in the kube-system namespace. The ConfigMap's name is usually coredns. You can retrieve it using the following command:
 
+```bash
+kubectl get configmap coredns -n kube-system -o yaml
+```
 
   
