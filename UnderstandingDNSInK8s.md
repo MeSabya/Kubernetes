@@ -5,7 +5,7 @@
 👉 The answer is **DNS !!**
 DNS is the foundation in K8S for service discovery. Every service defined in your cluster is assigned a DNS name.
 
-## What is the DNS server in your cluster?
+## What is the DNS server in your cluster (till k8s 1.11 kube-dns is the default DNS, kube-dns is replaced by core-dns ?
 - kube-dns is a built-in DNS service automatically launched in your cluster.
 - kube-dns runs as a deployment that scheduling kube-dns pods to nodes.
 - kube-dns is typically exposed as a native K8S service and the service type is ClusterIP, which means it is assigned a virtual IP address.
@@ -74,7 +74,91 @@ data:
 All DNS queries with the “.example.com” suffix will be forwarded to the server “1.2.3.4”.
 All other queries not ending in “.cluster.local” or “.example.com”, will be forwarded to the external DNS server at “8.8.4.4”.  
 
-  
+## Can you give me an example of how core DNS is used in k8s service and pod discovery. 
+
+Certainly! In Kubernetes, CoreDNS is used for DNS-based service and pod discovery within the cluster. Here's a simple example to illustrate how CoreDNS works for service and pod discovery:
+
+### Step1: Create a Deployment and a Service:
+
+Let's create a simple Nginx deployment and expose it using a Service.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+```
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+```
+
+### Step2: Apply these YAML files to create the deployment and service:
+
+```bash
+kubectl apply -f nginx-deployment.yaml
+kubectl apply -f nginx-service.yaml
+```
+
+### Step3: Verify CoreDNS Configuration:
+
+By default, CoreDNS in a Kubernetes cluster is configured to handle DNS resolution for services and pods. You don't need to explicitly configure CoreDNS for basic service discovery.
+
+### Step4: Service Discovery:
+
+You can now use DNS to discover the Nginx service. The service DNS format is <service-name>.<namespace>.svc.cluster.local.
+
+```bash
+nslookup nginx-service.default.svc.cluster.local
+```
+
+The output should show the ClusterIP address of the nginx-service. This is how DNS is used to resolve the service name to its IP address.
+
+### Step5: Pod Discovery:
+
+Each pod in Kubernetes gets a DNS subdomain based on its name and namespace. The format is <pod-name>.<namespace>.pod.cluster.local.
+
+Let's find the DNS name for one of the Nginx pods:
+
+```bash
+kubectl get pods -l app=nginx
+```
+
+Replace <pod-name> and <namespace> with the actual pod name and namespace from the output.
+
+```bash
+nslookup <pod-name>.<namespace>.pod.cluster.local
+```
+
+The output should show the IP address of the Nginx pod. This demonstrates how DNS is used to resolve the pod name to its IP address.
+
+In this example, CoreDNS automatically handles the DNS resolution for the Nginx service and pods. Kubernetes applications and services can use these DNS names to communicate with each other, making service discovery simpler and more abstracted from specific IP addresses.
 
 
 
