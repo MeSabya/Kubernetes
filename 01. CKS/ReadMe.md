@@ -21,6 +21,7 @@
    10. Securing ingress
    11. [Two different ways to start the Docker daemon](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/000.%20Cluster%20Setup%20And%20Hardening/04.%20Docker%20in%20foreground%20and%20background.md)
    12. [Securing Docker Service using TLS](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/000.%20Cluster%20Setup%20And%20Hardening/05.%20Securing%20Docker%20Service%20using%20TLS.md)
+   13. [Secret in K8s](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/000.%20Cluster%20Setup%20And%20Hardening/06.Secrets.md)
 
 ## System Hardening
    1. Minimize OS footprint
