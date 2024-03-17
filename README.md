@@ -38,7 +38,7 @@
 #### Service Account in K8s
 1. [Service Account in K8s](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#what-are-kubernetes-service-accounts)
 2. [How does service account works](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#how-does-kubernetes-service-account-works)
-3. [Default service account path in k8s](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#how-does-kubernetes-service-account-works)
+3. [Default service account path in k8s](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#default-service-account-path-of-pod)
 4. [service-account-why-role-and-role-binding-was-needed](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#along-with-the-service-account-why-role-and-role-binding-was-needed)
 
 ## References:
