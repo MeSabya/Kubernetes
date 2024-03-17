@@ -1,45 +1,3 @@
- # Kubernetes Basics Table of Content:
- 1. Kubernetes Architecture in detail
- 2. Kubernetes controllers
-   - Replicaset 
-   - Deployment 
-   - Statefulset 
-   - jobs 
-3. Volumes 
-4. Services (Network)
-5. HealthChecks 
-6. Configuration (Configmaps and secrets).
-7. Memory and CPU constraint.
-8. Microservice Design Pattern.(init, sidecar)
-9. Pod Placement and schedulling. 
-10. Security in K8
-
-![image](https://user-images.githubusercontent.com/33947539/192934688-1b8bfce5-4a07-4f65-8662-5f68428e917c.png)
-
-Glossary:- 
-=========
-- Images
-- Pods
-- Labels and Selectors
-- Replication Controller
-- Services
-- Volumes
-- Persistent Volumes
-- Secrets
-- Names
-- Namespaces
-- Nodes
-- Security Context
-- Service Accounts
-- Annotations
-- Daemon Sets
-- Deployments
-- Ingress Resources
-- Horizontal Pod Autoscaling
-- Jobs
-- Resource Quotas
-- Replica Sets
- 
  ![image](https://user-images.githubusercontent.com/33947539/201166537-d1dcb904-c0c5-4cf9-a813-2dd6c7e26373.png)
 
  ## Kubernetes Study Content
@@ -66,7 +24,7 @@ Glossary:-
    4. [Kubernetes Pod Affinity and Anti-Affinity](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#kubernetes-pod-affinity-and-anti-affinity)
    5. [Deployment Commands](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#commands-used-in-deployment)
 
-#### Volumes
+### Volumes
    1. [filesystem-vs-volume-vs-persistent-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#filesystem-vs-volume-vs-persistent-volume)
    2. [the-emptydir-ephemeral-volume](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#the-emptydir-ephemeral-volume)
    3. [empty dir usecase](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Kubernetes%20Volume%20Basics.md#usecase)
@@ -75,7 +33,14 @@ Glossary:-
    6. [persistent-volume-claim](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#persistent-volume-claim)
    7. [what-is-the-difference-between-persistent-volume-pv-and-persistent-volume-claim-pvc-in-simple-terms](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#what-is-the-difference-between-persistent-volume-pv-and-persistent-volume-claim-pvc-in-simple-terms)
    8. [details-on-persistent-volume-claim](https://github.com/MeSabya/Kubernetes/blob/main/volumes/Storage.md#details-on-persistent-volume-claim) 
- 
+
+### Security in K8s
+#### Service Account in K8s
+1. [Service Account in K8s](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#what-are-kubernetes-service-accounts)
+2. [How does service account works](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#how-does-kubernetes-service-account-works)
+3. [Default service account path in k8s](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#how-does-kubernetes-service-account-works)
+4. [service-account-why-role-and-role-binding-was-needed](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#along-with-the-service-account-why-role-and-role-binding-was-needed)
+
 ## References:
 - https://github.com/vfarcic/k8s-specs.git
  
@@ -94,6 +59,8 @@ Glossary:-
  - [ ] [Question Banks](https://luafanti.medium.com/certified-kubernetes-application-developer-ckad-everything-you-need-to-know-30eb5c2f70ba)
  - [ ] [CKAD Resources](https://github.com/lucassha/CKAD-resources)
  [K8 CheetSheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
+
  
 # Links I find interesting to CKAD topic
 https://codeburst.io/kubernetes-ckad-hands-on-challenge-13-replicaset-without-downtime-a9468d1fa994
