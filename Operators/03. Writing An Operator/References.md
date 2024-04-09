@@ -1,2 +1,3 @@
 - Basic Ooperator Example: https://github.com/leovct/kube-operator-tutorial?source=post_page-----11eec1492d30--------------------------------
 - Operator Theory: https://nakamasato.medium.com/kubernetes-operator-series-2-overview-of-controller-runtime-f8454522a539
+- Another Operator Exmple: https://github.com/BackAged/tdset-operator/tree/main
