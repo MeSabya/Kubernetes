@@ -1,9 +1,15 @@
 ## Problem1
 Deployment naboo is created. Make sure the replicas autoscale with minimum 2 and maximum 5 when at 80% CPU. Use naboo as the name of HPA resource.
 
-<detail>
+<details><summary>Answer here</summary>
+<p>
+
+```
 kubectl autoscale deploy naboo --name=naboo --min=2 --max=5 --cpu-percent=80
-</detail>
+ 
+```
+</p>
+</details>
 
 ## Problem2
 Create a Cron job bespin that runs every 5 minutes(*/5 * * * *) and runs command date. Use alpine image.
@@ -38,9 +44,10 @@ kubectl get po  -n skywalker --selector=jedi=true -o jsonpath="{range .items[*]}
 ## Problem5
 Create a pod myredis with image redis. Define a liveness probe and readiness probe with an initial delay of 5 seconds and command redis-cli PING.
 
-### Ans
-
-```yaml
+<details><summary>Ans here</summary>
+<p> 
+  
+```
 cat << EOF > myredis.yaml
 apiVersion: v1
 kind: Pod
@@ -71,6 +78,8 @@ spec:
 status: {}
 EOF
 ```
+</p>
+</details>
 
 ## Problem 
 Create a Pod named myenv with command sh -c "printenv && sleep 1h". Use alpine image.
@@ -125,9 +134,10 @@ Run kubectl top po -A --sort-by=cpu and put the name of first pod to /root/high-
 ## Problem
 Pod and Service geonosis is created for you. Create a network policy geonosis-shield which allows only pods with label empire=true to access the service. Use appropriate labels.
 
-### Ans
-```yaml
-cat << EOF > geonosis-shield.yaml
+<details><summary>Ans here </summary>
+  <p>
+
+```
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -141,6 +151,47 @@ spec:
     - podSelector:
         matchLabels:
           empire: "true"
-EOF
+
 ```
+</p>
+</details>
+
+## Problem
+Set the node named ek8s-node-0 as unavailable and reschedule all the pods running on it.
+
+<details>
+  <summary>Answer</summary>
+  <p>
+
+    
+  you can drain a node without explicitly cordoning it first. When you drain a node, Kubernetes automatically marks the node as unschedulable, effectively cordoning it, so that no new pods can be scheduled on the node 
+  while the draining process is taking place.
+
+  Here's an example of how you can drain a node without explicitly cordoning it:
+
+``` sh
+kubectl drain ek8s-node-0 --ignore-daemonsets --delete-emptydir-data
+Explanation of the Command
+kubectl drain ek8s-node-0: Drains the node named ek8s-node-0.
+```
+
+--ignore-daemonsets: Ensures that DaemonSet-managed pods are ignored during the drain process. DaemonSets typically run one pod per node and are often tied to the node's specific function, so they are not usually drained.
+--delete-emptydir-data: Forces deletion of pods using emptyDir volumes, which may cause data loss. Use this option with caution and ensure it's acceptable for your use case.
+
+### What Happens During Draining
+
+#### When you execute the drain command:
+
+- The node is marked as unschedulable (cordoned).
+- All pods running on the node are safely evicted, meaning they are terminated on the node and rescheduled on other nodes.
+- The draining process ensures that Kubernetes respects pod disruption budgets and will not evict more pods than allowed by the budgets.
+
+### Real-time Use Cases
+- Maintenance: For example, if you need to perform maintenance on ek8s-node-0, you can directly drain the node. This will move all workloads off the node safely.
+- Scaling: When reducing the number of nodes in your cluster, you can drain nodes to reschedule the pods elsewhere before terminating the nodes.
+- Troubleshooting: If a node is suspected of causing issues (e.g., hardware problems, network issues), you can drain it to move workloads to healthy nodes.
+
+
+  </p>
+</details>
 
