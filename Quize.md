@@ -1,9 +1,10 @@
 ## Problem1
 Deployment naboo is created. Make sure the replicas autoscale with minimum 2 and maximum 5 when at 80% CPU. Use naboo as the name of HPA resource.
 
+<detail>
 ### Ans:
 kubectl autoscale deploy naboo --name=naboo --min=2 --max=5 --cpu-percent=80
-
+</detail>
 ## Problem2
 Create a Cron job bespin that runs every 5 minutes(*/5 * * * *) and runs command date. Use alpine image.
 
