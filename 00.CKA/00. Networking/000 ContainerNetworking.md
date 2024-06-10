@@ -33,3 +33,5 @@ eth0 typically represents the physical or virtual network interface of the host 
 - eth0 handles external network traffic for the host, and containers can use eth0 indirectly to reach external networks, typically via Network Address Translation (NAT).
 
 These interfaces enable both isolated and external communication for Docker containers running on the host machine.
+
+![image](https://github.com/MeSabya/Kubernetes/assets/33947539/a024521d-fed5-492b-8acd-81f1603c314a)
