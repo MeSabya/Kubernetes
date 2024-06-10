@@ -82,3 +82,5 @@ iptables -t nat -A POSTROUTING -s <container-ip>/32 -j MASQUERADE
 
 These rules handle forwarding traffic from the host to the container and masquerading the source IP address so that return traffic is correctly routed back to the original requester.
 By handling this automatically, Docker simplifies the process of managing network connectivity for containers, allowing you to focus on your applications.
+
+![image](https://github.com/MeSabya/Kubernetes/assets/33947539/88794bf0-2d89-431b-817f-e7a9e8bf3179)
