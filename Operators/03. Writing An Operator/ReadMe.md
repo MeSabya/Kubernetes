@@ -3,6 +3,19 @@
 - Operator Theory: https://nakamasato.medium.com/kubernetes-operator-series-2-overview-of-controller-runtime-f8454522a539
 - Another Operator Exmple: https://github.com/BackAged/tdset-operator/tree/main
 
+## The operator can have a main loop to spawn and manage multiple application controllers, true or false?
+
+Managing Multiple Application Controllers
+In the context of a Kubernetes operator, managing multiple application controllers typically involves:
+
+- Defining Multiple CRDs: Each CRD corresponds to a different type of application or resource.
+- Creating Multiple Reconcilers: Each reconciler handles the logic for a specific CRD.
+- Managing Reconciler Instances: The operator's main loop (the manager) handles starting and stopping these reconcilers.
+
+## For an operator, can we run with multiple replicas?
+
+Yes, you can run a Kubernetes operator with multiple replicas to achieve high availability and better performance. When an operator runs with multiple replicas, Kubernetes ensures that the custom resources are reconciled by only one replica at a time, using leader election to coordinate which instance is actively performing the reconciliation tasks.
+
 ## Some important libraries to remember
 
 ```golang
