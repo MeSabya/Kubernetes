@@ -37,7 +37,7 @@
    11. [Seccomp in k8s](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/001.%20System%20Hardening/01.%20Tracing%20and%20Restricting%20Syscalls.md)
    12. [Apparmor](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/001.%20System%20Hardening/02.%20AppArmor.md)
    13. [seccomp Vs AppArmor](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/001.%20System%20Hardening/04.%20Seccomp%20Vs%20Apparmor.md)
-   14. 
+   14. [SecurityContext Vs PSA](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/001.%20System%20Hardening/06.%20SecurityContext%20Vs%20PSA.md)
 
 ## Minimize Microservices Vulnerabilities
    1. [Admission Controller](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/002.%20MINIMIZE%20MICROSERVICE%20VULNERABILITIES/001.Admission%20Controllers.md)
