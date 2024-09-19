@@ -126,6 +126,86 @@ subjects:
   namespace: pvtest
 ```
 
+### Pod defination file to use the vault secret 
+
+```yaml
+cat <<EOF >helloworld_app.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-secret
+  namespace: pvtest
+  labels:
+    app: basic-secret
+spec:
+  selector:
+    matchLabels:
+      app: basic-secret
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/ca-cert: '/vault/tls/tls.crt'
+        vault.hashicorp.com/tls-secret: vault-ca-tls-crt
+        vault.hashicorp.com/agent-inject-secret-helloworld: "secret/data/basic-secret/helloworld"
+        vault.hashicorp.com/agent-inject-template-helloworld: |
+          {{- with secret "secret/data/basic-secret/helloworld" -}}
+          {
+            "username" : "{{ .Data.data.username }}",
+            "password" : "{{ .Data.data.password }}"
+          }
+          {{- end }}
+        vault.hashicorp.com/role: "basic-secret-role"
+      labels:
+        app: basic-secret
+    spec:
+      serviceAccountName: basic-secret
+      imagePullSecrets:
+      - name: default-registry-key
+      containers:
+      - name: app
+        image: admin-2.cumulus.wrs.com:30093/mthebeau/docker.io/jweissig/app:0.0.1
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: basic-secret
+  namespace: pvtest
+  labels:
+    app: basic-secret
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pvtest-user-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: basic-secret
+  namespace: pvtest
+EOF
+```
+
+### Detailed Breakdown
+- vault.hashicorp.com/agent-inject: "true"
+This annotation tells the Vault Agent Injector to inject a Vault Agent into the Pod. This is necessary for automatically handling secret injection.
+
+- vault.hashicorp.com/ca-cert: '/vault/tls/tls.crt'
+Specifies the path to the CA certificate that Vault Agent should use to validate the Vault server’s TLS certificate.
+
+- vault.hashicorp.com/tls-secret: vault-ca-tls-crt
+The name of the Kubernetes Secret that contains the CA certificate used for Vault communication.
+
+- vault.hashicorp.com/agent-inject-secret-helloworld: "secret/data/basic-secret/helloworld"
+ Specifies the Vault path where the secrets are stored (secret/data/basic-secret/helloworld). The Vault Agent retrieves secrets from this path.
+
+- vault.hashicorp.com/agent-inject-template-helloworld
+Defines the template for formatting the secrets retrieved from Vault. This template instructs the Vault Agent how to format and write the secrets to a file.
+
 In summary, the basic-secret-policy defines Vault permissions, the basic-secret-role associates those permissions with Kubernetes RBAC, and the basic-secret service account is bound to a Kubernetes ClusterRole (cluster-admin). The Kubernetes ClusterRole (cluster-admin) provides sufficient permissions for the pod to interact with Vault.
 
 
