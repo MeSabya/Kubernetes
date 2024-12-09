@@ -1,3 +1,5 @@
+[Tricky Questions](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/TrickyQuestions.md)
+
 ## Cluster Setup and Hardening
    1. Authentication
    2. Authorization
