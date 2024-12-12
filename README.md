@@ -1,6 +1,27 @@
  ![image](https://user-images.githubusercontent.com/33947539/201166537-d1dcb904-c0c5-4cf9-a813-2dd6c7e26373.png)
 
- ## Kubernetes Study Content
+## Troubleshoot in K8s
+1) How To Fix Kubernetes Node Not Ready 
+↳ https://lnkd.in/gksPqZYF
+
+2) How to Fix Kubernetes Node Disk Pressure 
+↳ https://lnkd.in/gu9eFiRw
+
+3) Understanding Kubernetes CreateContainerError 
+↳ https://lnkd.in/gG_2nHb7
+
+4) Understanding Kubernetes CreateContainerConfigError 
+↳ https://lnkd.in/g6Z5TdBt
+
+5) Kubernetes ImagePullBackOff Explained 
+↳ https://lnkd.in/gzCTSWRG
+
+6) Kubernetes RunContainerError Explained 
+↳ https://lnkd.in/ggQcqi5t
+
+7) How To Fix OOMKilled 
+↳ https://lnkd.in/gznwimNr
+## Kubernetes Study Content
  1. [Deployments-vs-Statefulsets-vs-Daemonsets](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#deployments-vs-statefulsets-vs-daemonsets)
     1. [Deployments](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#deployments)
     2. [Statefulsets](https://github.com/MeSabya/Kubernetes/tree/main/counter-app#statefulsets)
