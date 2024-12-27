@@ -1,3 +1,167 @@
+## How would you enforce TLS encryption for communication between microservices in a Kubernetes cluster?
+
+### 1. Use Service Mesh (e.g., Istio)
+A service mesh like Istio simplifies the enforcement of TLS encryption between microservices.
+
+Steps:
+
+- Install Istio:
+
+Install Istio in your cluster using Helm, Istio Operator, or Istioctl.
+Enable mutual TLS (mTLS) during installation or after setup.
+Example:
+
+```bash
+istioctl install --set profile=default
+```
+
+- Enable mTLS in Istio:
+
+Create a PeerAuthentication resource to enforce mTLS for services.
+
+Example:
+
+```yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: default
+spec:
+  mtls:
+    mode: STRICT
+```
+This ensures that all services in the namespace default communicate over TLS.
+
+### Use Cert-Manager for Certificates
+If you prefer to handle TLS manually, you can use cert-manager to provision and manage TLS certificates for microservices.
+
+Steps:
+
+#### Install Cert-Manager: Install cert-manager using Helm or kubectl.
+
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.0/cert-manager.yaml
+```
+
+#### Configure a CertificateIssuer: 
+Example:
+
+```yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: user@example.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+```
+#### Request Certificates: Deploy Certificate resources for your microservices.
+
+```yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-service-tls
+  namespace: default
+spec:
+  secretName: my-service-tls-secret
+  dnsNames:
+  - my-service.default.svc.cluster.local
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+```
+#### Configure TLS in Your Services:
+Use the generated secrets (my-service-tls-secret) to configure your microservices for TLS communication.
+
+## How cert-manager works in behind.
+
+```yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-cert-name
+  namespace: my-application-namespace
+spec:
+  secretName: my-cert-secret-name
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days
+  issuerRef:
+    name: system-local-ca
+    kind: ClusterIssuer
+  commonName: <OAM_floating_IP_address>
+  subject:
+    organizations:
+      - ABC-Company
+    organizationalUnits:
+      - StarlingX-new-certificate
+#    countries:
+#    provinces:
+#    localities:
+  ipAddresses:
+  - <OAM_floating_IP_address>
+  dnsNames:
+  - <DNS name>
+```
+- When you apply this YAML file, cert-manager detects the Certificate resource.
+- Cert-manager validates the resource's configuration and ensures that the ClusterIssuer referenced in issuerRef exists.
+
+Then it does the following steps:
+
+### CSR Generation:
+
+Cert-manager generates a private key locally in the Kubernetes cluster.
+Using this private key, it creates a CSR that includes the requested attributes like:
+- commonName
+- dnsNames
+- ipAddresses
+- Additional subject details (e.g., organizations and organizationalUnits).
+
+### Sending the CSR:
+
+Cert-manager sends the CSR to the specified Issuer or ClusterIssuer. The issuer can be:
+An internal Kubernetes CA (via kube-controller-manager).
+A public ACME service (e.g., Let's Encrypt).
+An external CA.
+A custom certificate authority.
+
+### CSR Validation:
+The issuer validates the CSR for correctness, including:
+- Matching the requested attributes against its policies.
+- Performing necessary validations (e.g., ACME challenges for ownership of domain/IP).
+
+### Certificate Issuance:
+If the CSR is valid, the issuer signs the CSR and generates a certificate.
+The certificate is returned to cert-manager.
+
+### Storing the Certificate:
+- Cert-manager stores the issued certificate and the corresponding private key in the Kubernetes Secret specified in the Certificate resource (e.g., my-cert-secret-name).
+
+## Advantages of Cert-Manager
+
+- Automated Certificate Management: 
+Cert-manager handles certificate issuance, renewal, and updates without manual intervention.
+
+- Integration with Multiple Issuers:
+  Supports ACME/Let's Encrypt, self-signed CAs, and external CAs.
+
+- Security:
+  Ensures TLS encryption is always up-to-date, reducing the risk of expired certificates.
+
+- Scalability: 
+  Easily manages certificates across clusters and namespaces.
+
+By using cert-manager with a properly configured Certificate resource, you ensure reliable and automated TLS encryption for your Kubernetes workloads.
+
+
 ## You are an administrator of a Kubernetes cluster running a couple of existing Pods. It's your job to inspect the containers defined by the Pods for immutability. Delete all Pods that do not follow typical immutability best practices.
 
 A container can be considered mutable if it exhibits characteristics that allow it to change during its lifecycle.
