@@ -1,3 +1,26 @@
+## What steps would you take if you suspect a Pod has been compromised?
+
+### Identify and Isolate the Pod
+- Quarantine: Immediately cordon the node hosting the Pod using kubectl cordon <node-name> to prevent new Pods from being scheduled on it.
+- Isolate the Pod: Delete the compromised Pod using kubectl delete pod <pod-name> if possible, but consider keeping it running if you need to investigate further. Instead, disable
+  external access to it.
+- Check Resource Usage, Use kubectl top pod to observe abnormal CPU or memory spikes.
+- Backup the Pod: Capture the Pod's configuration and logs using commands like:
+```bash
+kubectl get pod <pod-name> -o yaml > pod-backup.yaml
+kubectl logs <pod-name> > pod-logs.txt
+```
+
+### Capture Evidence 
+- Use forensic tools like Falco, Sysdig, or Kubectl-trace to collect runtime details.
+
+### Review Cluster and Environment Security
+- Use tools like Trivy or Aqua to scan the Pod's container image and cluster for vulnerabilities.
+- Restrict container capabilities, privilege escalation, and writable root file systems.(using PSA, security context).
+- Immediately rotate any secrets, environment variables, or keys the Pod had access to.
+- Ensure the Pod had the principle of least privilege applied in its RoleBindings or ClusterRoleBindings.
+- After gathering evidence, delete the compromised Pod and its associated resources.
+
 ## How would you enforce TLS encryption for communication between microservices in a Kubernetes cluster?
 
 ### 1. Use Service Mesh (e.g., Istio)
