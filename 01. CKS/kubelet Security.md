@@ -1,3 +1,6 @@
+## Must Read Reference:
+https://www.cncf.io/blog/2021/08/20/how-to-secure-your-kubernetes-control-plane-and-node-components/
+
 ## How do you ensure that kubelet configurations are secure across all nodes
 
 ### How to Locate the Kubelet Configuration File, is it inside /etc/kubernetes/manifets where other manifests reside? How to find it? 
