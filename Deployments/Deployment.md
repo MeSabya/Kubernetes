@@ -80,7 +80,7 @@ For example, say you had a deployment running 5 pods that read from an event str
 ### Solution
 you can set your maxSurge to 1, maxUnavailable to 0, and **[minReadySeconds](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#how-does-minreadyseconds-affect-readiness-probe)** to 60. This would ensure new pods would be created one at a time, a minute would pass between pods being added, and old pods would only be removed once new pods have already warmed up. This way you update all your pods over the course of ~5 minutes, and your processing times remain stable.
 
-## Kubernetes Pod Affinity and Anti-Affinity
+## Kubernetes Pod Affinity/Anti-Affinity and taints and tolerations
 - Affinity and anti-affinity allow you to control on which nodes the pods in your deployment can be scheduled. While this feature is not specific to deployments, it can be very useful for many applications.
 
 
@@ -88,8 +88,147 @@ When configuring affinity or anti-affinity , There are two options:
 - **requiredDuringSchedulingIgnoredDuringExecution**: the pod cannot be scheduled on a node unless it matches the affinity configuration, even if there are no nodes that match
 - **preferredDuringSchedulingIgnoredDuringExecution**: the scheduler will attempt to schedule the pod on a node matching the affinity configuration, but if it is unable to do so the pod will still be scheduled on another node.
 
-**Pod Affinity**:Pod affinity is used to schedule pods onto certain nodes. You would normally want to do this if you know that a pod has a specific resource requirement that can be met by a specific set of nodes.
-**Pod AntiAffinity**:Pod anti-affinity is useful for ensuring that pods in a Deployment are not scheduled all on one node. 
+### 1. Node Affinity
+Node Affinity is a set of rules that influence which nodes a Pod can be scheduled on. It’s similar to nodeSelector, but more expressive and flexible. With Node Affinity, you can specify conditions based on node labels, allowing you to place Pods on nodes that match certain criteria.
+
+### There are two types of Node Affinity:
+
+#### a. RequiredDuringSchedulingIgnoredDuringExecution
+This means that the Pod will only be scheduled on nodes that satisfy the conditions specified in the nodeAffinity field. If no node satisfies the conditions, the Pod will remain unscheduled.
+
+Example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "kubernetes.io/hostname"
+            operator: In
+            values:
+            - "node-1"
+            - "node-2"
+  containers:
+    - name: example-container
+      image: busybox
+```
+This Pod will only be scheduled on node-1 or node-2.
+
+#### b. PreferredDuringSchedulingIgnoredDuringExecution
+This is a soft constraint. It tells Kubernetes that, if possible, it should schedule the Pod on a node that satisfies the conditions. However, if no node meets the criteria, Kubernetes can still schedule the Pod on another node that doesn’t meet the condition.
+
+Example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+            - key: "kubernetes.io/zone"
+              operator: In
+              values:
+              - "us-east-1a"
+  containers:
+    - name: example-container
+      image: busybox
+```
+Kubernetes will prefer to schedule the Pod in the us-east-1a zone, but it will still schedule it elsewhere if necessary.
+
+#### Common Use Cases for Node Affinity
+- Spread Pods Across Zones or Regions: To ensure high availability, you can schedule Pods across different availability zones or regions.
+- Node Specific Requirements: Certain workloads may require specific hardware resources or configurations that are only available on certain nodes (e.g., GPUs, large memory nodes).
+- Isolation of Workloads: Use Node Affinity to isolate workloads to specific nodes (e.g., separating batch jobs from web servers).
+
+### 2. Taints and Tolerations
+Taints and Tolerations provide a way to repel Pods from being scheduled onto certain nodes unless they explicitly tolerate the taint on the node. This helps ensure that only specific Pods are allowed to run on nodes with special configurations or requirements.
+
+#### a. Taints
+A taint is a property added to a node that prevents Pods from being scheduled onto it unless the Pods tolerate the taint. Taints have three parts:
+
+- Key: A key for the taint (e.g., key1).
+- Value: An optional value associated with the key (e.g., value1).
+- Effect: What happens to Pods that do not tolerate the taint. There are three possible effects:
+
+    - NoSchedule: The Pod will not be scheduled on the node.
+    - PreferNoSchedule: Kubernetes will try to avoid scheduling the Pod on this node.
+    - NoExecute: The Pod is not only unscheduled but will also be evicted if it’s already running on the node.
+
+Example of adding a taint to a node:
+
+```bash
+kubectl taint nodes node-1 key1=value1:NoSchedule
+```
+
+This command adds a taint to node-1, preventing Pods without the matching toleration from being scheduled on it.
+
+#### b. Tolerations
+Tolerations allow Pods to be scheduled on nodes with matching taints. A toleration is added to a Pod specification, and it defines which taints the Pod is willing to tolerate.
+
+Example of a Pod with a toleration:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  tolerations:
+  - key: "key1"
+    operator: "Equal"
+    value: "value1"
+    effect: "NoSchedule"
+  containers:
+    - name: example-container
+      image: busybox
+This Pod can be scheduled on nodes that have the taint key1=value1:NoSchedule.
+```
+### Combining Node Affinity with Taints and Tolerations
+In some scenarios, it’s useful to combine Node Affinity and Taints/Tolerations to ensure more precise control over where Pods are scheduled. Here’s an example:
+
+Node Affinity could specify that a Pod must be scheduled on nodes in a particular zone.
+Taints could prevent most Pods from being scheduled on a node with high load or specific hardware needs.
+Tolerations would then allow only certain Pods (e.g., critical workloads or specialized workloads) to tolerate the taint and be scheduled on the tainted node.
+Example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "kubernetes.io/zone"
+            operator: In
+            values:
+            - "us-west-1a"
+  tolerations:
+  - key: "critical"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+  containers:
+    - name: example-container
+      image: busybox
+```
+
+This Pod will only be scheduled on us-west-1a and can only be scheduled on nodes that have the taint critical=true:NoSchedule.
 
 ## Commands used in Deployment:
 #### List deployments:
