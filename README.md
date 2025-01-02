@@ -42,7 +42,7 @@
       - [Rolling back](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#rolling-back-to-previous-version)
    2. [minreadyseconds-affect-readiness-probe](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#how-does-minreadyseconds-affect-readiness-probe)
    3. [Rollingupdate UseCase](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#deployment-usecase-analysis)
-   4. [Kubernetes Pod Affinity and Anti-Affinity](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#kubernetes-pod-affinityanti-affinity-and-taints-and-tolerations)
+   4. [Kubernetes Pod Affinity and Anti-Affinity/Taints and tolerations](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#kubernetes-pod-affinityanti-affinity-and-taints-and-tolerations)
    5. [Deployment Commands](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#commands-used-in-deployment)
 
 ### Volumes
@@ -62,6 +62,8 @@
 3. [Default service account path in k8s](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#default-service-account-path-of-pod)
 4. [service-account-why-role-and-role-binding-was-needed](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#along-with-the-service-account-why-role-and-role-binding-was-needed)
 
+## PDB
+[Pod disruption budget](https://github.com/MeSabya/Kubernetes/blob/main/Pod%20Disruption%20Budget.md)
 ## References:
 - https://github.com/vfarcic/k8s-specs.git
  
