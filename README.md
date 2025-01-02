@@ -42,7 +42,7 @@
       - [Rolling back](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#rolling-back-to-previous-version)
    2. [minreadyseconds-affect-readiness-probe](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#how-does-minreadyseconds-affect-readiness-probe)
    3. [Rollingupdate UseCase](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#deployment-usecase-analysis)
-   4. [Kubernetes Pod Affinity and Anti-Affinity](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#kubernetes-pod-affinity-and-anti-affinity)
+   4. [Kubernetes Pod Affinity and Anti-Affinity](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#kubernetes-pod-affinityanti-affinity-and-taints-and-tolerations)
    5. [Deployment Commands](https://github.com/MeSabya/Kubernetes/blob/main/Deployments/Deployment.md#commands-used-in-deployment)
 
 ### Volumes
