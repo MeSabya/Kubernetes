@@ -58,4 +58,20 @@ Suitable for stateless applications or batch workloads where a few Pods being un
 - Provides flexibility while balancing disruptions and availability.
 - Works well for stateless or high-replica applications.
 
-- 
+##  Key Notes
+
+### Voluntary vs. Involuntary Disruptions:
+
+PDB applies only to voluntary disruptions (e.g., node draining, updates).
+It does not prevent Pods from being disrupted due to involuntary issues (e.g., node crashes).
+
+### Defaults:
+If neither minAvailable nor maxUnavailable is specified, the PDB does not impose any restrictions.
+
+### Interaction with Controllers:
+
+PDBs work with ReplicaSets, Deployments, StatefulSets, and other controllers to enforce the specified rules.
+PDBs do not apply to Pods that are not managed by a controller.
+
+### Percentages:
+Both minAvailable and maxUnavailable can be specified as an absolute number or as a percentage of total Pods.
