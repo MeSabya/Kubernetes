@@ -1,3 +1,8 @@
+## List and describe available PATCH methods
+- JSON Patch: can be used for both built-in and custom resources.
+- JSON Merge Patch: ditto. For the difference from JSON patch, read http://erosb.github.io/post/json-patch-vs-merge-patch/ .
+- admission.PatchResponseFromRaw(req.Object.Raw, marshaledPod)
+
 ## Describe the problem and solution when multiple mutating webhooks edit the same resource.
 
 There is no way to specify the order of applying mutating webhooks for kube-apiserver.
