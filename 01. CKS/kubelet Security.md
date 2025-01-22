@@ -27,7 +27,7 @@ ps -ef | grep kubelet | grep config
 - Use the NodeRestriction admission plugin to limit what kubelets can access and modify.
   Set --authorization-mode=Webhook and --authentication-token-webhook=true to ensure kubelets authenticate and are authorized securely by the API server.
 
-## What is the purpose of the NodeRestriction admission plugin, and how does it enhance security?
+## What is the purpose of the NodeRestriction admission plugin (default admission plugin in api-server  onfig file), and how does it enhance security?
 
 The NodeRestriction admission plugin in Kubernetes enhances cluster security by ensuring that nodes (and the associated kubelet components) can only 
 modify or access resources that they are explicitly authorized to interact with. Here's a detailed explanation of its purpose and how it enhances security:
