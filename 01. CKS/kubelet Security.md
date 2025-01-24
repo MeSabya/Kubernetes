@@ -29,6 +29,39 @@ Tasks the Kubelet Performs: With this role, the kubelet can:
 
 ## How to verify that the kubelet on a node (e.g., controller-0) is authenticating as the user system:node:controller-0 and is part of the system:nodes group?
 
+### Inspect the Kubelet Client Certificate
+Kubelets authenticate with the Kubernetes API server using client certificates. You can check the certificate being used by the kubelet:
+
+On the Node (e.g., controller-0):
+Locate the Certificate: The kubelet's client certificate is usually stored under /var/lib/kubelet/pki/. The file to inspect is typically kubelet-client-current.pem.
+
+```bash
+sudo openssl x509 -in /var/lib/kubelet/pki/kubelet-client-current.pem -text -noout
+```
+
+Check the Certificate Subject: Look for the Subject field in the certificate. It should show:
+
+```perl
+Subject: O=system:nodes, CN=system:node:controller-0
+O=system:nodes: This indicates the kubelet belongs to the system:nodes group.
+CN=system:node:controller-0: This indicates the kubelet's username.
+```
+
+### View the system:node Role and Binding
+Verify that the system:node ClusterRole grants the expected permissions and is correctly bound to the system:node:controller-0 user.
+
+Check the system:node ClusterRole:
+
+```bash
+kubectl get clusterrole system:node -o yaml
+```
+
+Check the system:node ClusterRoleBinding:
+
+```bash
+kubectl get clusterrolebinding system:node -o yaml
+```
+Ensure the subjects field includes the user system:node:controller-0 or the group system:nodes.
 
 ## How do you ensure that kubelet configurations are secure across all nodes
 
