@@ -1,6 +1,35 @@
 ## Must Read Reference:
 https://www.cncf.io/blog/2021/08/20/how-to-secure-your-kubernetes-control-plane-and-node-components/
 
+
+## How does kubelet authentication/authorization works?
+
+The kubelet is a critical Kubernetes component that runs on each node in the cluster.
+It is responsible for:
+
+- Registering the node with the Kubernetes API server.
+- Maintaining the Node object to reflect the node's current status.
+- Managing Pods scheduled on the node by the control plane.
+
+### Authentication with Certificates:
+- Each kubelet typically authenticates with the Kubernetes API server using a client certificate.
+- During the kubelet bootstrap process (e.g., using the kubeadm tool or other mechanisms), the kubelet is issued a certificate where:
+- The Subject field in the certificate contains the username system:node:<nodeName> (in this case, system:node:controller-0).
+- The certificate also includes the group system:nodes.
+
+### Role and Permissions:
+- Kubernetes uses this username (system:node:<nodeName>) and group (system:nodes) to determine what the kubelet is allowed to do.
+- The ClusterRoleBinding binds the system:node ClusterRole (which has predefined permissions for kubelets) to the kubelet running on controller-0.
+
+Tasks the Kubelet Performs: With this role, the kubelet can:
+
+- Manage its own Node object in the API (e.g., update its status, advertise its health).
+- Modify Pod objects that are assigned to the node (e.g., update readiness status).
+- Retrieve resources it needs (e.g., ConfigMaps, Secrets) for workloads running on the node.
+
+## How to verify that the kubelet on a node (e.g., controller-0) is authenticating as the user system:node:controller-0 and is part of the system:nodes group?
+
+
 ## How do you ensure that kubelet configurations are secure across all nodes
 
 ### How to Locate the Kubelet Configuration File, is it inside /etc/kubernetes/manifets where other manifests reside? How to find it? 
