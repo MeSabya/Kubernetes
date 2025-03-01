@@ -1,3 +1,8 @@
+## How can you restrict Pods from running as root?
+
+![image](https://github.com/user-attachments/assets/1f890437-8753-4bd4-a73d-7107890673a9)
+
+
 ## How does Kubernetes handle certificate expiration for control plane components, and how would you renew them?
 
 ***Certificate Management in Kubernetes***
