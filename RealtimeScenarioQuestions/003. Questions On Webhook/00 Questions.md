@@ -74,3 +74,19 @@ webhooks:
         resources: ["pods"]
 ```
 
+When would you use a Mutating Admission Webhook vs a Validating Admission Webhook?
+
+How do you deploy and scale a webhook in a production cluster?
+
+How do you ensure high availability and minimal latency in a webhook?
+
+How do you secure webhooks using cert-manager or manual TLS?
+
+How do you handle ordering and conflicts when multiple mutating webhooks are present?
+
+Can a webhook cause a cluster outage? How would you prevent that?
+
+How would you write a webhook to block deprecated API usage in the cluster?
+
+How do you test a webhook locally before deploying?
+
