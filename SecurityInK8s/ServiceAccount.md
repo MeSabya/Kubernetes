@@ -290,7 +290,52 @@ roleRef:
 
 🧩 This lets read-pods ServiceAccount authenticate via its token and be authorized to list/get pods in demo namespace.
 
+## how to validate the token externally or how to use it in curl to access the Kubernetes API manually? 
 
+<details>
+
+### Create a ServiceAccount (if needed)
+
+```bash
+kubectl create serviceaccount my-sa -n default
+```
+
+### Get a JWT Token for the ServiceAccount (K8s v1.24+)
+
+```bash
+kubectl create token my-sa -n default
+```
+You’ll get a long JWT like:
+
+```bash
+eyJhbGciOiJSUzI1NiIsImtpZCI6I...
+```
+Save this in a variable for convenience:
+
+```bash
+TOKEN=$(kubectl create token my-sa -n default)
+
+### Access the Kubernetes API with curl + the Token
+Get the API Server Address
+
+```bash
+APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+```
+Get the CA Cert (Optional, for HTTPS verification)
+
+```bash
+CACERT=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+```
+
+### Call the API with Curl
+
+```bash
+curl -s --cacert $CACERT \
+  -H "Authorization: Bearer $TOKEN" \
+  "$APISERVER/api/v1/namespaces/default/pods"
+```
+
+</details>
 
 
 ## References
