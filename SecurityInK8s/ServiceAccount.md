@@ -334,9 +334,32 @@ curl -s --cacert $CACERT \
   -H "Authorization: Bearer $TOKEN" \
   "$APISERVER/api/v1/namespaces/default/pods"
 ```
-
 </details>
 
+## So Authentication is handled by JWT token, authorization by RBAC .. what is CACERT here?
+
+<details>
+
+## Real-World Analogy (Passport Check)
+
+- Imagine you're at an airport immigration checkpoint:
+- The officer shows you a badge (like a TLS certificate).
+- You trust the badge only if it was issued by a real government authority (like the CA — Certificate Authority).
+- If someone shows you a fake badge from a random print shop, you won't trust it.
+- Just like this, when your client talks to the Kubernetes API server, it wants to make sure it’s really the API server — and not a fake server.
+
+### What is ca.crt in Kubernetes?
+- The Kubernetes API server uses TLS (HTTPS) to secure communication.
+- It presents a TLS certificate (like a digital ID) when you connect.
+- Your client (like curl) needs to verify this certificate was signed by a trusted Certificate Authority (CA).
+- ca.crt is that trusted CA certificate — it tells your client which certificates to trust.
+
+#### Why is it needed?
+- If the API server uses a self-signed cert or a cluster-specific CA, your client won’t trust it by default.
+- You use --cacert ca.crt with curl to tell it:
+- "Trust this certificate if it was signed by this CA."
+
+</details>
 
 ## References
 
