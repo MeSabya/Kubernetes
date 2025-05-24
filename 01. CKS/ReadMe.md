@@ -7,6 +7,7 @@
       - [How Does Kubernetes Service Account Works?]()
       - [What is authorization token in Sservice Account]()
       - [Along with the service account, why role and role binding was needed?]()
+      - [So Authentication is handled by JWT token, authorization by RBAC .. what is CACERT here?](https://github.com/MeSabya/Kubernetes/blob/main/SecurityInK8s/ServiceAccount.md#so-authentication-is-handled-by-jwt-token-authorization-by-rbac--what-is-cacert-here)
    4. TLS in K8s
        - [How Asymmetric encryption works](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/000.%20Cluster%20Setup%20And%20Hardening/01.%20TLS/00.%20TLS%20Basics.md#how-asymmetric-encryption-works)
        - [TLS and SSH relation](https://github.com/MeSabya/Kubernetes/blob/main/01.%20CKS/000.%20Cluster%20Setup%20And%20Hardening/01.%20TLS/00.%20TLS%20Basics.md#tls-and-ssh-asymmetric-encryption-both-are-related)
