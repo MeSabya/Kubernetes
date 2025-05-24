@@ -210,6 +210,89 @@ In this example:
 - pod-reader is a Role that grants permissions to get and list pods within the namespace.
 - read-pods is a RoleBinding that binds the my-service-account ServiceAccount to the pod-reader Role.
 
+## Summary
+
+### 1. Service Account = Identity (Authentication)
+- A ServiceAccount in Kubernetes represents a non-human identity (like a Pod or controller) used to interact with the Kubernetes API.
+- It gets an authentication token (JWT).
+- This token is automatically mounted into Pods under /var/run/secrets/kubernetes.io/serviceaccount/token (unless disabled).
+- When a Pod uses the Kubernetes API, it presents this token.
+- So the token is used for authentication — "Who are you?"
+
+### 2. RBAC = Permissions (Authorization)
+- RBAC (Role-Based Access Control) defines what actions a user or service account can perform on which Kubernetes resources.
+- It applies to authenticated identities (users, groups, service accounts).
+- RBAC rules say:
+  "This ServiceAccount can list pods in namespace foo" or
+  "This ServiceAccount can create ConfigMaps in all namespaces"
+So RBAC handles authorization — "What can you do?"
+
+🔁 How They Work Together (Flow)
+
+Authentication:
+A Pod (using a ServiceAccount token) makes a request to the API server.
+
+The API server verifies the JWT token:
+
+Checks it's signed correctly.
+
+Determines the identity: system:serviceaccount:<namespace>:<name>
+
+🛡️ Authorization (RBAC kicks in):
+
+Looks up the RBAC rules bound to that ServiceAccount.
+
+Determines if the action (e.g., get pods) is allowed.
+
+If allowed → ✅ request proceeds.
+
+If not → ❌ 403 Forbidden.
+
+🧠 Example
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: read-pods
+  namespace: demo
+```
+
+```yaml
+# Role
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: demo
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+```
+
+```yaml
+# RoleBinding
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-pods-binding
+  namespace: demo
+subjects:
+- kind: ServiceAccount
+  name: read-pods
+  namespace: demo
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+
+🧩 This lets read-pods ServiceAccount authenticate via its token and be authorized to list/get pods in demo namespace.
+
+
+
+
 ## References
 
 https://loft.sh/blog/kubernetes-service-account-what-it-is-and-how-to-use-it
